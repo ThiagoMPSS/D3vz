@@ -1,0 +1,11 @@
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\D3vz API.exe
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\D3vz API.dll
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\D3vz API.deps.json
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\D3vz API.runtimeconfig.json
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\D3vz API.pdb
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Thiago\source\repos\D3vz API\D3vz API\obj\Release\net6.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
