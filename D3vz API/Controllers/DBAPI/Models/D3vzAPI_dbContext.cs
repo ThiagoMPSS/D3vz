@@ -7,9 +7,9 @@ namespace D3vz_API.Models {
     public partial class D3vzAPI_dbContext : DbContext {
 
         private static D3vzAPI_dbContext? _Instance;
-        public static D3vzAPI_dbContext Instance => _Instance ?? (_Instance = new D3vzAPI_dbContext());
+        public static D3vzAPI_dbContext Instance => _Instance ??= new D3vzAPI_dbContext();
 
-        private D3vzAPI_dbContext() { }
+        //private D3vzAPI_dbContext() { }
 
 
         //public D3vzAPI_dbContext(DbContextOptions<D3vzAPI_dbContext> options)
@@ -39,7 +39,7 @@ namespace D3vz_API.Models {
                 entity.ToTable("t_aluno");
 
                 entity.Property(e => e.TUserIdUser)
-                    .HasDefaultValue(0).ValueGeneratedOnAdd()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("t_user_id_user");
 
                 entity.HasOne(d => d.TUserIdUserNavigation)
@@ -47,6 +47,8 @@ namespace D3vz_API.Models {
                     .HasForeignKey<TAluno>(d => d.TUserIdUser)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("t_aluno_t_user_fk");
+
+                entity.HasMany(d => d.TInteresses).WithMany(d => d.TAlunoTUserIdUserNavigation);
             });
 
             modelBuilder.Entity<TAula>(entity => {
@@ -56,7 +58,7 @@ namespace D3vz_API.Models {
                 entity.ToTable("t_aula");
 
                 entity.Property(e => e.IdAula)
-                    .HasDefaultValue(0).ValueGeneratedOnAdd()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id_aula");
 
                 entity.Property(e => e.TAlunoTUserIdUser).HasColumnName("t_aluno_t_user_id_user");
@@ -83,7 +85,7 @@ namespace D3vz_API.Models {
                 entity.ToTable("t_interesses");
 
                 entity.Property(e => e.IdInteresses)
-                    .HasDefaultValue(0).ValueGeneratedOnAdd()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id_interesses");
 
                 entity.Property(e => e.DsInteresse)
@@ -91,13 +93,13 @@ namespace D3vz_API.Models {
                     .IsUnicode(false)
                     .HasColumnName("ds_interesse");
 
-                entity.Property(e => e.TAlunoTUserIdUser).HasColumnName("t_aluno_t_user_id_user");
+                //entity.Property(e => e.TAlunoTUserIdUser).HasColumnName("t_aluno_t_user_id_user");
 
-                entity.HasOne(d => d.TAlunoTUserIdUserNavigation)
-                    .WithMany(p => p.TInteresses)
-                    .HasForeignKey(d => d.TAlunoTUserIdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("t_interesses_t_aluno_fk");
+                //entity.HasOne(d => d.TAlunoTUserIdUserNavigation)
+                //    .WithMany(p => p.TInteresses)
+                //    .HasForeignKey(d => d.TAlunoTUserIdUser)
+                //    .OnDelete(DeleteBehavior.ClientSetNull)
+                //    .HasConstraintName("t_interesses_t_aluno_fk");
             });
 
             modelBuilder.Entity<TProf>(entity => {
@@ -107,7 +109,7 @@ namespace D3vz_API.Models {
                 entity.ToTable("t_prof");
 
                 entity.Property(e => e.TUserIdUser)
-                    .HasDefaultValue(0).ValueGeneratedOnAdd()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("t_user_id_user");
 
                 entity.Property(e => e.DsProf)
@@ -129,7 +131,7 @@ namespace D3vz_API.Models {
                 entity.ToTable("t_qualificacoes");
 
                 entity.Property(e => e.IdQualificacoes)
-                    .HasDefaultValue(0).ValueGeneratedOnAdd()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id_qualificacoes");
 
                 entity.Property(e => e.DsLinguagem)
@@ -153,7 +155,7 @@ namespace D3vz_API.Models {
                 entity.ToTable("t_user");
 
                 entity.Property(e => e.IdUser)
-                    .HasDefaultValue(0).ValueGeneratedOnAdd()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id_user");
 
                 entity.Property(e => e.Discriminacao)
