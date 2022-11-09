@@ -9,12 +9,12 @@ namespace D3vz_API.Models
         public TAluno()
         {
             TAulas = new HashSet<TAula>();
-            TInteresses = new HashSet<TInteress>();
+            TAluno_TInteresses = new HashSet<TAluno_TInteress>();
         }
 
         public long TUserIdUser { get; set; } = 0;
         public virtual TUser TUserIdUserNavigation { get; set; } = null!;
         public virtual ICollection<TAula> TAulas { get; set; }
-        public virtual ICollection<TInteress> TInteresses { get; set; }
+        public virtual ICollection<TAluno_TInteress> TAluno_TInteresses { get; set; }
     }
 }

@@ -4,7 +4,6 @@ using D3vz_API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,10 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace D3vz_API.Migrations
 {
     [DbContext(typeof(D3vzAPI_dbContext))]
-    [Migration("20221107155601_Inicial2")]
-    partial class Inicial2
+    partial class D3vzAPI_dbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +33,29 @@ namespace D3vz_API.Migrations
                         .HasName("t_aluno_pk");
 
                     b.ToTable("t_aluno", (string)null);
+                });
+
+            modelBuilder.Entity("D3vz_API.Models.TAluno_TInteress", b =>
+                {
+                    b.Property<long>("IdTAluno_TInteress_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdTAluno_TInteress_Id"), 1L, 1);
+
+                    b.Property<long>("IdInteress")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("IdTAluno_TInteress_Id");
+
+                    b.HasIndex("IdInteress");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("TAluno_TInteress");
                 });
 
             modelBuilder.Entity("D3vz_API.Models.TAula", b =>
@@ -80,14 +101,8 @@ namespace D3vz_API.Migrations
                         .HasColumnType("varchar(30)")
                         .HasColumnName("ds_interesse");
 
-                    b.Property<long>("TAlunoTUserIdUser")
-                        .HasColumnType("bigint")
-                        .HasColumnName("t_aluno_t_user_id_user");
-
                     b.HasKey("IdInteresses")
                         .HasName("t_interesses_pk");
-
-                    b.HasIndex("TAlunoTUserIdUser");
 
                     b.ToTable("t_interesses", (string)null);
                 });
@@ -112,7 +127,30 @@ namespace D3vz_API.Migrations
                     b.ToTable("t_prof", (string)null);
                 });
 
-            modelBuilder.Entity("D3vz_API.Models.TQualificaco", b =>
+            modelBuilder.Entity("D3vz_API.Models.TProf_TQualificacao", b =>
+                {
+                    b.Property<long>("IdTProf_TQualificacao_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdTProf_TQualificacao_Id"), 1L, 1);
+
+                    b.Property<long>("IdQualificacao")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IdUser")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("IdTProf_TQualificacao_Id");
+
+                    b.HasIndex("IdQualificacao");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("TProf_TQualificacao");
+                });
+
+            modelBuilder.Entity("D3vz_API.Models.TQualificacao", b =>
                 {
                     b.Property<long>("IdQualificacoes")
                         .ValueGeneratedOnAdd()
@@ -128,14 +166,8 @@ namespace D3vz_API.Migrations
                         .HasColumnType("varchar(30)")
                         .HasColumnName("ds_linguagem");
 
-                    b.Property<long>("TProfTUserIdUser")
-                        .HasColumnType("bigint")
-                        .HasColumnName("t_prof_t_user_id_user");
-
                     b.HasKey("IdQualificacoes")
                         .HasName("t_qualificacoes_pk");
-
-                    b.HasIndex("TProfTUserIdUser");
 
                     b.ToTable("t_qualificacoes", (string)null);
                 });
@@ -197,10 +229,32 @@ namespace D3vz_API.Migrations
                     b.HasOne("D3vz_API.Models.TUser", "TUserIdUserNavigation")
                         .WithOne("TAluno")
                         .HasForeignKey("D3vz_API.Models.TAluno", "TUserIdUser")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired()
                         .HasConstraintName("t_aluno_t_user_fk");
 
                     b.Navigation("TUserIdUserNavigation");
+                });
+
+            modelBuilder.Entity("D3vz_API.Models.TAluno_TInteress", b =>
+                {
+                    b.HasOne("D3vz_API.Models.TAluno", "TAluno_Navigation")
+                        .WithMany("TAluno_TInteresses")
+                        .HasForeignKey("IdInteress")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("TAlunoTInteress_TAluno_FK");
+
+                    b.HasOne("D3vz_API.Models.TInteress", "TInteress_Navigation")
+                        .WithMany("TAluno_TInteressNavigation")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("TAlunoTInteress_TInteress_FK");
+
+                    b.Navigation("TAluno_Navigation");
+
+                    b.Navigation("TInteress_Navigation");
                 });
 
             modelBuilder.Entity("D3vz_API.Models.TAula", b =>
@@ -222,51 +276,61 @@ namespace D3vz_API.Migrations
                     b.Navigation("TProfTUserIdUserNavigation");
                 });
 
-            modelBuilder.Entity("D3vz_API.Models.TInteress", b =>
-                {
-                    b.HasOne("D3vz_API.Models.TAluno", "TAlunoTUserIdUserNavigation")
-                        .WithMany("TInteresses")
-                        .HasForeignKey("TAlunoTUserIdUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TAlunoTUserIdUserNavigation");
-                });
-
             modelBuilder.Entity("D3vz_API.Models.TProf", b =>
                 {
                     b.HasOne("D3vz_API.Models.TUser", "TUserIdUserNavigation")
                         .WithOne("TProf")
                         .HasForeignKey("D3vz_API.Models.TProf", "TUserIdUser")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired()
                         .HasConstraintName("t_prof_t_user_fk");
 
                     b.Navigation("TUserIdUserNavigation");
                 });
 
-            modelBuilder.Entity("D3vz_API.Models.TQualificaco", b =>
+            modelBuilder.Entity("D3vz_API.Models.TProf_TQualificacao", b =>
                 {
-                    b.HasOne("D3vz_API.Models.TProf", "TProfTUserIdUserNavigation")
-                        .WithMany("TQualificacos")
-                        .HasForeignKey("TProfTUserIdUser")
+                    b.HasOne("D3vz_API.Models.TProf", "TProf_Navigation")
+                        .WithMany("TProf_TQualificacao")
+                        .HasForeignKey("IdQualificacao")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("t_qualificacoes_t_prof_fk");
+                        .HasConstraintName("TProfTQualificacao_TProf_FK");
 
-                    b.Navigation("TProfTUserIdUserNavigation");
+                    b.HasOne("D3vz_API.Models.TQualificacao", "TQualificacao_Navigation")
+                        .WithMany("TProf_TQualificacaoNavigation")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("TProfTQualificacao_TQualificacao_FK");
+
+                    b.Navigation("TProf_Navigation");
+
+                    b.Navigation("TQualificacao_Navigation");
                 });
 
             modelBuilder.Entity("D3vz_API.Models.TAluno", b =>
                 {
-                    b.Navigation("TAulas");
+                    b.Navigation("TAluno_TInteresses");
 
-                    b.Navigation("TInteresses");
+                    b.Navigation("TAulas");
+                });
+
+            modelBuilder.Entity("D3vz_API.Models.TInteress", b =>
+                {
+                    b.Navigation("TAluno_TInteressNavigation");
                 });
 
             modelBuilder.Entity("D3vz_API.Models.TProf", b =>
                 {
                     b.Navigation("TAulas");
 
-                    b.Navigation("TQualificacos");
+                    b.Navigation("TProf_TQualificacao");
+                });
+
+            modelBuilder.Entity("D3vz_API.Models.TQualificacao", b =>
+                {
+                    b.Navigation("TProf_TQualificacaoNavigation");
                 });
 
             modelBuilder.Entity("D3vz_API.Models.TUser", b =>

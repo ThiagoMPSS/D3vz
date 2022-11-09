@@ -8,7 +8,7 @@ namespace D3vz_API.Models
         public TProf()
         {
             TAulas = new HashSet<TAula>();
-            TQualificacos = new HashSet<TQualificaco>();
+            TProf_TQualificacao = new HashSet<TProf_TQualificacao>();
         }
 
         public long TUserIdUser { get; set; } = 0;
@@ -16,6 +16,6 @@ namespace D3vz_API.Models
 
         public virtual TUser TUserIdUserNavigation { get; set; } = null!;
         public virtual ICollection<TAula> TAulas { get; set; }
-        public virtual ICollection<TQualificaco> TQualificacos { get; set; }
+        public virtual ICollection<TProf_TQualificacao> TProf_TQualificacao { get; set; }
     }
 }

@@ -6,23 +6,24 @@ using Microsoft.EntityFrameworkCore.Metadata;
 namespace D3vz_API.Models {
     public partial class D3vzAPI_dbContext : DbContext {
 
-        private static D3vzAPI_dbContext? _Instance;
-        public static D3vzAPI_dbContext Instance => _Instance ??= new D3vzAPI_dbContext();
+        //private static D3vzAPI_dbContext? _Instance;
+        //public static D3vzAPI_dbContext Instance => _Instance ??= new D3vzAPI_dbContext();
 
         //private D3vzAPI_dbContext() { }
 
 
         //public D3vzAPI_dbContext(DbContextOptions<D3vzAPI_dbContext> options)
-        //    : base(options)
-        //{
+        //    : base(options) {
         //}
 
         public virtual DbSet<TAluno> TAlunos { get; set; } = null!;
         public virtual DbSet<TAula> TAulas { get; set; } = null!;
         public virtual DbSet<TInteress> TInteresses { get; set; } = null!;
         public virtual DbSet<TProf> TProfs { get; set; } = null!;
-        public virtual DbSet<TQualificaco> TQualificacoes { get; set; } = null!;
+        public virtual DbSet<TQualificacao> TQualificacoes { get; set; } = null!;
         public virtual DbSet<TUser> TUsers { get; set; } = null!;
+        public virtual DbSet<TAluno_TInteress> TAluno_TInteress { get; set; } = null!;
+        public virtual DbSet<TProf_TQualificacao> TProf_TQualificacao { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured) {
@@ -45,10 +46,8 @@ namespace D3vz_API.Models {
                 entity.HasOne(d => d.TUserIdUserNavigation)
                     .WithOne(p => p.TAluno)
                     .HasForeignKey<TAluno>(d => d.TUserIdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.ClientCascade)
                     .HasConstraintName("t_aluno_t_user_fk");
-
-                entity.HasMany(d => d.TInteresses).WithMany(d => d.TAlunoTUserIdUserNavigation);
             });
 
             modelBuilder.Entity<TAula>(entity => {
@@ -92,14 +91,6 @@ namespace D3vz_API.Models {
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("ds_interesse");
-
-                //entity.Property(e => e.TAlunoTUserIdUser).HasColumnName("t_aluno_t_user_id_user");
-
-                //entity.HasOne(d => d.TAlunoTUserIdUserNavigation)
-                //    .WithMany(p => p.TInteresses)
-                //    .HasForeignKey(d => d.TAlunoTUserIdUser)
-                //    .OnDelete(DeleteBehavior.ClientSetNull)
-                //    .HasConstraintName("t_interesses_t_aluno_fk");
             });
 
             modelBuilder.Entity<TProf>(entity => {
@@ -120,11 +111,11 @@ namespace D3vz_API.Models {
                 entity.HasOne(d => d.TUserIdUserNavigation)
                     .WithOne(p => p.TProf)
                     .HasForeignKey<TProf>(d => d.TUserIdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.ClientCascade)
                     .HasConstraintName("t_prof_t_user_fk");
             });
 
-            modelBuilder.Entity<TQualificaco>(entity => {
+            modelBuilder.Entity<TQualificacao>(entity => {
                 entity.HasKey(e => e.IdQualificacoes)
                     .HasName("t_qualificacoes_pk");
 
@@ -138,14 +129,6 @@ namespace D3vz_API.Models {
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("ds_linguagem");
-
-                entity.Property(e => e.TProfTUserIdUser).HasColumnName("t_prof_t_user_id_user");
-
-                entity.HasOne(d => d.TProfTUserIdUserNavigation)
-                    .WithMany(p => p.TQualificacos)
-                    .HasForeignKey(d => d.TProfTUserIdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("t_qualificacoes_t_prof_fk");
             });
 
             modelBuilder.Entity<TUser>(entity => {
@@ -183,6 +166,35 @@ namespace D3vz_API.Models {
                     .HasColumnName("nm_usuario");
 
                 entity.Property(e => e.NrCpf).HasColumnName("nr_cpf");
+            });
+
+            modelBuilder.Entity<TAluno_TInteress>(entity => {
+                entity.HasKey(e => e.IdTAluno_TInteress_Id);
+                entity.Property(e => e.IdTAluno_TInteress_Id)
+                    .ValueGeneratedOnAdd();
+
+                entity.HasOne(e => e.TAluno_Navigation).WithMany(e => e.TAluno_TInteresses)
+                    .HasForeignKey(e => e.IdInteress)
+                    .HasConstraintName("TAlunoTInteress_TAluno_FK");
+
+                entity.HasOne(e => e.TInteress_Navigation).WithMany(e => e.TAluno_TInteressNavigation)
+                    .HasForeignKey(e => e.IdUser)
+                    .HasConstraintName("TAlunoTInteress_TInteress_FK");
+
+            });
+
+            modelBuilder.Entity<TProf_TQualificacao>(entity => {
+                entity.HasKey(e => e.IdTProf_TQualificacao_Id);
+                entity.Property(e => e.IdTProf_TQualificacao_Id)
+                    .ValueGeneratedOnAdd();
+
+                entity.HasOne(e => e.TProf_Navigation).WithMany(e => e.TProf_TQualificacao)
+                    .HasForeignKey(e => e.IdQualificacao)
+                    .HasConstraintName("TProfTQualificacao_TProf_FK");
+
+                entity.HasOne(e => e.TQualificacao_Navigation).WithMany(e => e.TProf_TQualificacaoNavigation)
+                    .HasForeignKey(e => e.IdUser)
+                    .HasConstraintName("TProfTQualificacao_TQualificacao_FK");
             });
 
             OnModelCreatingPartial(modelBuilder);

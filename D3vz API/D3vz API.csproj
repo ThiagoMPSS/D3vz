@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="20221108181557_Inicial.cs" />
+    <Compile Remove="20221108181557_Inicial.Designer.cs" />
+    <Compile Remove="20221108182059_Inicial2.cs" />
+    <Compile Remove="20221108182059_Inicial2.Designer.cs" />
+    <Compile Remove="D3vzAPI_dbContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
