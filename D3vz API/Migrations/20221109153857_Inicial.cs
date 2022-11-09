@@ -10,29 +10,16 @@ namespace D3vz_API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "t_interesses",
+                name: "t_interquali",
                 columns: table => new
                 {
-                    id_interesses = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ds_interesse = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("t_interesses_pk", x => x.id_interesses);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "t_qualificacoes",
-                columns: table => new
-                {
-                    id_qualificacoes = table.Column<long>(type: "bigint", nullable: false)
+                    id_interquali = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ds_linguagem = table.Column<string>(type: "varchar(30)", unicode: false, maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("t_qualificacoes_pk", x => x.id_qualificacoes);
+                    table.PrimaryKey("t_interquali_pk", x => x.id_interquali);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,28 +74,28 @@ namespace D3vz_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TAluno_TInteress",
+                name: "TUser_TInterQuali",
                 columns: table => new
                 {
-                    IdTAluno_TInteress_Id = table.Column<long>(type: "bigint", nullable: false)
+                    IdTUser_TInterQuali_Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdUser = table.Column<long>(type: "bigint", nullable: false),
-                    IdInteress = table.Column<long>(type: "bigint", nullable: false)
+                    IdInterQuali = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TAluno_TInteress", x => x.IdTAluno_TInteress_Id);
+                    table.PrimaryKey("PK_TUser_TInterQuali", x => x.IdTUser_TInterQuali_Id);
                     table.ForeignKey(
-                        name: "TAlunoTInteress_TAluno_FK",
-                        column: x => x.IdInteress,
-                        principalTable: "t_aluno",
-                        principalColumn: "t_user_id_user",
+                        name: "TUserTInterQuali_TInterQuali_FK",
+                        column: x => x.IdUser,
+                        principalTable: "t_interquali",
+                        principalColumn: "id_interquali",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "TAlunoTInteress_TInteress_FK",
-                        column: x => x.IdUser,
-                        principalTable: "t_interesses",
-                        principalColumn: "id_interesses",
+                        name: "TUserTInterQuali_TUser_FK",
+                        column: x => x.IdInterQuali,
+                        principalTable: "t_user",
+                        principalColumn: "id_user",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -136,32 +123,6 @@ namespace D3vz_API.Migrations
                         principalColumn: "t_user_id_user");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "TProf_TQualificacao",
-                columns: table => new
-                {
-                    IdTProf_TQualificacao_Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUser = table.Column<long>(type: "bigint", nullable: false),
-                    IdQualificacao = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TProf_TQualificacao", x => x.IdTProf_TQualificacao_Id);
-                    table.ForeignKey(
-                        name: "TProfTQualificacao_TProf_FK",
-                        column: x => x.IdQualificacao,
-                        principalTable: "t_prof",
-                        principalColumn: "t_user_id_user",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "TProfTQualificacao_TQualificacao_FK",
-                        column: x => x.IdUser,
-                        principalTable: "t_qualificacoes",
-                        principalColumn: "id_qualificacoes",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_t_aula_t_aluno_t_user_id_user",
                 table: "t_aula",
@@ -173,23 +134,13 @@ namespace D3vz_API.Migrations
                 column: "t_prof_t_user_id_user");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TAluno_TInteress_IdInteress",
-                table: "TAluno_TInteress",
-                column: "IdInteress");
+                name: "IX_TUser_TInterQuali_IdInterQuali",
+                table: "TUser_TInterQuali",
+                column: "IdInterQuali");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TAluno_TInteress_IdUser",
-                table: "TAluno_TInteress",
-                column: "IdUser");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TProf_TQualificacao_IdQualificacao",
-                table: "TProf_TQualificacao",
-                column: "IdQualificacao");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TProf_TQualificacao_IdUser",
-                table: "TProf_TQualificacao",
+                name: "IX_TUser_TInterQuali_IdUser",
+                table: "TUser_TInterQuali",
                 column: "IdUser");
         }
 
@@ -199,22 +150,16 @@ namespace D3vz_API.Migrations
                 name: "t_aula");
 
             migrationBuilder.DropTable(
-                name: "TAluno_TInteress");
-
-            migrationBuilder.DropTable(
-                name: "TProf_TQualificacao");
+                name: "TUser_TInterQuali");
 
             migrationBuilder.DropTable(
                 name: "t_aluno");
 
             migrationBuilder.DropTable(
-                name: "t_interesses");
-
-            migrationBuilder.DropTable(
                 name: "t_prof");
 
             migrationBuilder.DropTable(
-                name: "t_qualificacoes");
+                name: "t_interquali");
 
             migrationBuilder.DropTable(
                 name: "t_user");

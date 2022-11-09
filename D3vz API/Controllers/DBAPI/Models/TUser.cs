@@ -10,6 +10,7 @@ namespace D3vz_API.Models {
 
         public TUser() {
             //IdUser = D3vzAPI_dbContext.Instance.TUsers.Count();
+            TUser_TInterQuali = new HashSet<TUser_TInterQuali>();
         }
 
         public long IdUser { get; set; } = 0;
@@ -24,6 +25,8 @@ namespace D3vz_API.Models {
         public virtual TAluno? TAluno { get; set; }
         [JsonIgnore]
         public virtual TProf? TProf { get; set; }
+
+        public virtual ICollection<TUser_TInterQuali> TUser_TInterQuali { get; set; }
 
     }
 }

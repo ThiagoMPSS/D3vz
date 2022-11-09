@@ -18,12 +18,10 @@ namespace D3vz_API.Models {
 
         public virtual DbSet<TAluno> TAlunos { get; set; } = null!;
         public virtual DbSet<TAula> TAulas { get; set; } = null!;
-        public virtual DbSet<TInteress> TInteresses { get; set; } = null!;
+        public virtual DbSet<TInterQuali> TInteresses { get; set; } = null!;
         public virtual DbSet<TProf> TProfs { get; set; } = null!;
-        public virtual DbSet<TQualificacao> TQualificacoes { get; set; } = null!;
         public virtual DbSet<TUser> TUsers { get; set; } = null!;
-        public virtual DbSet<TAluno_TInteress> TAluno_TInteress { get; set; } = null!;
-        public virtual DbSet<TProf_TQualificacao> TProf_TQualificacao { get; set; } = null!;
+        public virtual DbSet<TUser_TInterQuali> TUser_TInterQuali { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured) {
@@ -77,17 +75,17 @@ namespace D3vz_API.Models {
                     .HasConstraintName("t_aula_t_prof_fk");
             });
 
-            modelBuilder.Entity<TInteress>(entity => {
-                entity.HasKey(e => e.IdInteresses)
+            modelBuilder.Entity<TInterQuali>(entity => {
+                entity.HasKey(e => e.IdInterQuali)
                     .HasName("t_interesses_pk");
 
                 entity.ToTable("t_interesses");
 
-                entity.Property(e => e.IdInteresses)
+                entity.Property(e => e.IdInterQuali)
                     .ValueGeneratedOnAdd()
                     .HasColumnName("id_interesses");
 
-                entity.Property(e => e.DsInteresse)
+                entity.Property(e => e.DsLinguagem)
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("ds_interesse");
@@ -115,15 +113,15 @@ namespace D3vz_API.Models {
                     .HasConstraintName("t_prof_t_user_fk");
             });
 
-            modelBuilder.Entity<TQualificacao>(entity => {
-                entity.HasKey(e => e.IdQualificacoes)
-                    .HasName("t_qualificacoes_pk");
+            modelBuilder.Entity<TInterQuali>(entity => {
+                entity.HasKey(e => e.IdInterQuali)
+                    .HasName("t_interquali_pk");
 
-                entity.ToTable("t_qualificacoes");
+                entity.ToTable("t_interquali");
 
-                entity.Property(e => e.IdQualificacoes)
+                entity.Property(e => e.IdInterQuali)
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("id_qualificacoes");
+                    .HasColumnName("id_interquali");
 
                 entity.Property(e => e.DsLinguagem)
                     .HasMaxLength(30)
@@ -168,33 +166,19 @@ namespace D3vz_API.Models {
                 entity.Property(e => e.NrCpf).HasColumnName("nr_cpf");
             });
 
-            modelBuilder.Entity<TAluno_TInteress>(entity => {
-                entity.HasKey(e => e.IdTAluno_TInteress_Id);
-                entity.Property(e => e.IdTAluno_TInteress_Id)
+            modelBuilder.Entity<TUser_TInterQuali>(entity => {
+                entity.HasKey(e => e.IdTUser_TInterQuali_Id);
+                entity.Property(e => e.IdTUser_TInterQuali_Id)
                     .ValueGeneratedOnAdd();
 
-                entity.HasOne(e => e.TAluno_Navigation).WithMany(e => e.TAluno_TInteresses)
-                    .HasForeignKey(e => e.IdInteress)
-                    .HasConstraintName("TAlunoTInteress_TAluno_FK");
+                entity.HasOne(e => e.TUser_Navigation).WithMany(e => e.TUser_TInterQuali)
+                    .HasForeignKey(e => e.IdInterQuali)
+                    .HasConstraintName("TUserTInterQuali_TUser_FK");
 
-                entity.HasOne(e => e.TInteress_Navigation).WithMany(e => e.TAluno_TInteressNavigation)
+                entity.HasOne(e => e.TInterQuali_Navigation).WithMany(e => e.TAluno_TInterQualiNavigation)
                     .HasForeignKey(e => e.IdUser)
-                    .HasConstraintName("TAlunoTInteress_TInteress_FK");
+                    .HasConstraintName("TUserTInterQuali_TInterQuali_FK");
 
-            });
-
-            modelBuilder.Entity<TProf_TQualificacao>(entity => {
-                entity.HasKey(e => e.IdTProf_TQualificacao_Id);
-                entity.Property(e => e.IdTProf_TQualificacao_Id)
-                    .ValueGeneratedOnAdd();
-
-                entity.HasOne(e => e.TProf_Navigation).WithMany(e => e.TProf_TQualificacao)
-                    .HasForeignKey(e => e.IdQualificacao)
-                    .HasConstraintName("TProfTQualificacao_TProf_FK");
-
-                entity.HasOne(e => e.TQualificacao_Navigation).WithMany(e => e.TProf_TQualificacaoNavigation)
-                    .HasForeignKey(e => e.IdUser)
-                    .HasConstraintName("TProfTQualificacao_TQualificacao_FK");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace D3vz_API.Models {
-    public partial class TInteress {
-        public TInteress() {
-            TAluno_TInteressNavigation = new HashSet<TAluno_TInteress>();
+    public partial class TInterQuali {
+        public TInterQuali() {
+            TAluno_TInterQualiNavigation = new HashSet<TUser_TInterQuali>();
         }
 
-        public long IdInteresses { get; set; }
-        public string DsInteresse { get; set; } = null!;
+        public long IdInterQuali { get; set; }
+        public string DsLinguagem { get; set; } = null!;
 
         [JsonIgnore]
-        public virtual ICollection<TAluno_TInteress> TAluno_TInteressNavigation { get; set; }
+        public virtual ICollection<TUser_TInterQuali> TAluno_TInterQualiNavigation { get; set; }
     }
 }

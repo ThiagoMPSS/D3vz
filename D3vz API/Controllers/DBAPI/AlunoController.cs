@@ -27,15 +27,16 @@ namespace D3vz_API.Controllers.DBAPI {
                 using (var db = new D3vzAPI_dbContext()) {
                     var alunos = (from aluno in (db.TAlunos
                                     .Include(e => e.TUserIdUserNavigation)
+                                    .ThenInclude(e => e.TUser_TInterQuali)
+                                    .ThenInclude(e => e.TInterQuali_Navigation))
                                     .Where(e => e.TUserIdUserNavigation.IdUser == id)
-                                    .Include(e => e.TAluno_TInteresses).ThenInclude(e => e.TInteress_Navigation))
                                   select new {
                                       ID = aluno.TUserIdUser,
                                       Nome = aluno.TUserIdUserNavigation.NmUsuario,
                                       Email = aluno.TUserIdUserNavigation.DsEmail,
                                       CPF = aluno.TUserIdUserNavigation.NrCpf,
                                       Nascimento = aluno.TUserIdUserNavigation.DtNascimento,
-                                      Interesses = aluno.TAluno_TInteresses.Select(e => e.TInteress_Navigation.DsInteresse)
+                                      Interesses = aluno.TUserIdUserNavigation.TUser_TInterQuali.Select(e => e.TInterQuali_Navigation.DsLinguagem)
                                   }).FirstOrDefault();
 
                     return new JsonResult(alunos);
@@ -51,15 +52,16 @@ namespace D3vz_API.Controllers.DBAPI {
                 using (var db = new D3vzAPI_dbContext()) {
                     var alunos = (from aluno in (db.TAlunos
                                     .Include(e => e.TUserIdUserNavigation)
-                                    .Where(e => e.TUserIdUserNavigation.DsEmail == email)
-                                    .Include(e => e.TAluno_TInteresses).ThenInclude(e => e.TInteress_Navigation))
+                                    .ThenInclude(e => e.TUser_TInterQuali)
+                                    .ThenInclude(e => e.TInterQuali_Navigation)
+                                    .Where(e => e.TUserIdUserNavigation.DsEmail == email))
                                   select new {
                                       ID = aluno.TUserIdUser,
                                       Nome = aluno.TUserIdUserNavigation.NmUsuario,
                                       Email = aluno.TUserIdUserNavigation.DsEmail,
                                       CPF = aluno.TUserIdUserNavigation.NrCpf,
                                       Nascimento = aluno.TUserIdUserNavigation.DtNascimento,
-                                      Interesses = aluno.TAluno_TInteresses.Select(e => e.TInteress_Navigation.DsInteresse)
+                                      Interesses = aluno.TUserIdUserNavigation.TUser_TInterQuali.Select(e => e.TInterQuali_Navigation.DsLinguagem)
                                   }).FirstOrDefault();
                     return new JsonResult(alunos);
                 }
@@ -68,14 +70,14 @@ namespace D3vz_API.Controllers.DBAPI {
             }
         }
 
-        private static TAluno_TInteress[] MakeInteresses(string[] interesses, D3vzAPI_dbContext db) {
+        private static TUser_TInterQuali[] MakeInteresses(string[] interesses, D3vzAPI_dbContext db) {
             try {
                 var arr = interesses.Select(s => {
-                    var interesseFounded = db.TInteresses.Where(e => e.DsInteresse == s).FirstOrDefault();
+                    var interesseFounded = db.TInteresses.Where(e => e.DsLinguagem == s).FirstOrDefault();
                     if (interesseFounded == null)
-                        return new TAluno_TInteress() { TInteress_Navigation = new TInteress() { DsInteresse = s } };
+                        return new TUser_TInterQuali() { TInterQuali_Navigation = new TInterQuali() { DsLinguagem = s } };
                     else
-                        return new TAluno_TInteress() { TInteress_Navigation = interesseFounded };
+                        return new TUser_TInterQuali() { TInterQuali_Navigation = interesseFounded };
                 }).ToArray();
                 return arr;
             } catch (Exception ex) {
@@ -100,9 +102,8 @@ namespace D3vz_API.Controllers.DBAPI {
                         DsSenha = senha,
                         NrCpf = cpf,
                         DtNascimento = dt_nasc,
-                        TAluno = new TAluno() {
-                            TAluno_TInteresses = MakeInteresses(interesses, db)
-                        }
+                        TUser_TInterQuali = MakeInteresses(interesses, db),
+                        TAluno = new TAluno()
                     };
                     db.TUsers.Add(user);
                     db.SaveChanges();
@@ -120,8 +121,8 @@ namespace D3vz_API.Controllers.DBAPI {
                     var aluno = db.TAlunos
                         .Where(a => a.TUserIdUser == id)
                         .Include(e => e.TUserIdUserNavigation)
-                        .Include(e => e.TAluno_TInteresses)
-                        .ThenInclude(e => e.TInteress_Navigation)
+                        .ThenInclude(e => e.TUser_TInterQuali)
+                        .ThenInclude(e => e.TInterQuali_Navigation)
                         .FirstOrDefault();
 
                     if (aluno == null)
@@ -135,12 +136,12 @@ namespace D3vz_API.Controllers.DBAPI {
                     if (!string.IsNullOrEmpty(cpf)) aluno.TUserIdUserNavigation.NrCpf = cpf;
                     if (dt_nasc != null) aluno.TUserIdUserNavigation.DtNascimento = dt_nasc.Value;
                     if (interesses != null) {
-                        var remover = aluno.TAluno_TInteresses.Where(e => !interesses.Contains(e.TInteress_Navigation.DsInteresse));
-                        var adicionar = interesses.Where(e => aluno.TAluno_TInteresses.Where(e1 => e1.TInteress_Navigation.DsInteresse == e).FirstOrDefault() == null);
+                        var remover = aluno.TUserIdUserNavigation.TUser_TInterQuali.Where(e => !interesses.Contains(e.TInterQuali_Navigation.DsLinguagem));
+                        var adicionar = interesses.Where(e => aluno.TUserIdUserNavigation.TUser_TInterQuali.Where(e1 => e1.TInterQuali_Navigation.DsLinguagem == e).FirstOrDefault() == null);
                         foreach (var item in remover)
-                            aluno.TAluno_TInteresses.Remove(item);
+                            aluno.TUserIdUserNavigation.TUser_TInterQuali.Remove(item);
                         foreach (var item in adicionar)
-                            aluno.TAluno_TInteresses.Add(MakeInteresses(new string[] { item }, db).First());
+                            aluno.TUserIdUserNavigation.TUser_TInterQuali.Add(MakeInteresses(new string[] { item }, db).First());
                     }
 
                     db.SaveChanges();
