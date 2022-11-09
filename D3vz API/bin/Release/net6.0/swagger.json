@@ -5,6 +5,175 @@
     "version": "1.0"
   },
   "paths": {
+    "/Aluno": {
+      "post": {
+        "tags": [
+          "Aluno"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "nm_user",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "senha",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "cpf",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dt_nasc",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Aluno"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Aluno"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Aluno"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "nm_user",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "senha",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "cpf",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dt_nasc",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Aluno/GetById": {
+      "get": {
+        "tags": [
+          "Aluno"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [

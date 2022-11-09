@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="D3vzAPI20221105110604" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Thiago\\source\\repos\\D3vz\ API\\D3vz\ API\\obj\\Release\\net6\.0\\PubTmp\\Out\\$" />
+  <parameter name="IIS Web Application Name" description="" value="D3vzAPI20221109154710" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\ThiagoMombergPlens\\source\\repos\\ThiagoMPSS\\D3vz\\D3vz\ API\\obj\\Release\\net6\.0\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>
