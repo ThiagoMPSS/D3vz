@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace D3vz_API.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class AulaMig1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,7 +106,9 @@ namespace D3vz_API.Migrations
                     id_aula = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     t_aluno_t_user_id_user = table.Column<long>(type: "bigint", nullable: false),
-                    t_prof_t_user_id_user = table.Column<long>(type: "bigint", nullable: false)
+                    t_prof_t_user_id_user = table.Column<long>(type: "bigint", nullable: false),
+                    DataHora = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

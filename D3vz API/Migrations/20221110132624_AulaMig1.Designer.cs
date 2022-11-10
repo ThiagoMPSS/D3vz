@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace D3vz_API.Migrations
 {
     [DbContext(typeof(D3vzAPI_dbContext))]
-    [Migration("20221109153857_Inicial")]
-    partial class Inicial
+    [Migration("20221110132624_AulaMig1")]
+    partial class AulaMig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,9 @@ namespace D3vz_API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdAula"), 1L, 1);
 
+                    b.Property<DateTime>("DataHora")
+                        .HasColumnType("datetime2");
+
                     b.Property<long>("TAlunoTUserIdUser")
                         .HasColumnType("bigint")
                         .HasColumnName("t_aluno_t_user_id_user");
@@ -53,6 +56,10 @@ namespace D3vz_API.Migrations
                     b.Property<long>("TProfTUserIdUser")
                         .HasColumnType("bigint")
                         .HasColumnName("t_prof_t_user_id_user");
+
+                    b.Property<string>("URL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdAula")
                         .HasName("t_aula_pk");

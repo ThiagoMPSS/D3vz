@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/Aluno": {
+    "/API/Aluno": {
       "post": {
         "tags": [
           "Aluno"
@@ -154,7 +154,7 @@
         }
       }
     },
-    "/Aluno/GetById": {
+    "/API/Aluno/GetById": {
       "get": {
         "tags": [
           "Aluno"
@@ -174,50 +174,177 @@
         }
       }
     },
-    "/WeatherForecast": {
-      "get": {
+    "/API/Professor": {
+      "post": {
         "tags": [
-          "WeatherForecast"
+          "Professor"
         ],
-        "operationId": "GetWeatherForecast",
-        "produces": [
-          "text/plain",
+        "consumes": [
           "application/json",
-          "text/json"
+          "text/json",
+          "application/*+json"
         ],
-        "responses": {
-          "200": {
-            "description": "Success",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "nm_user",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "descricao",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "senha",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "cpf",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dt_nasc",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "body",
+            "name": "body",
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/WeatherForecast"
+                "type": "string"
               }
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Professor"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Id",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Professor"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Professor"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "nm_user",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "senha",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "cpf",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "dt_nasc",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
         }
       }
-    }
-  },
-  "definitions": {
-    "WeatherForecast": {
-      "type": "object",
-      "properties": {
-        "date": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "temperatureC": {
-          "format": "int32",
-          "type": "integer"
-        },
-        "temperatureF": {
-          "format": "int32",
-          "type": "integer",
-          "readOnly": true
-        },
-        "summary": {
-          "type": "string"
+    },
+    "/API/Professor/GetById": {
+      "get": {
+        "tags": [
+          "Professor"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
         }
       }
     }
