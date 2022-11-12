@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\DBAPI\Models\**" />
+    <Content Remove="Controllers\DBAPI\Models\**" />
+    <EmbeddedResource Remove="Controllers\DBAPI\Models\**" />
+    <None Remove="Controllers\DBAPI\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="20221108181557_Inicial.cs" />
     <Compile Remove="20221108181557_Inicial.Designer.cs" />
     <Compile Remove="20221108182059_Inicial2.cs" />
@@ -24,6 +31,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\D3vzDbLibrary\D3vzDbLibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -869,6 +869,20 @@
             "rid": "win"
           }
         }
+      },
+      "D3vzDbLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10"
+        },
+        "compile": {
+          "bin/placeholder/D3vzDbLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/D3vzDbLibrary.dll": {}
+        }
       }
     }
   },
@@ -2215,10 +2229,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "D3vzDbLibrary/1.0.0": {
+      "type": "project",
+      "path": "../D3vzDbLibrary/D3vzDbLibrary.csproj",
+      "msbuildProject": "../D3vzDbLibrary/D3vzDbLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "D3vzDbLibrary >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.10",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.10",
@@ -2257,7 +2277,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ThiagoMombergPlens\\source\\repos\\ThiagoMPSS\\D3vz\\D3vzDbLibrary\\D3vzDbLibrary.csproj": {
+              "projectPath": "C:\\Users\\ThiagoMombergPlens\\source\\repos\\ThiagoMPSS\\D3vz\\D3vzDbLibrary\\D3vzDbLibrary.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

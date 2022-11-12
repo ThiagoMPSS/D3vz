@@ -1,4 +1,4 @@
-using D3vz_API.Models;
+using D3vzDbLibrary;
 
 var builder = WebApplication.CreateBuilder(args);
 

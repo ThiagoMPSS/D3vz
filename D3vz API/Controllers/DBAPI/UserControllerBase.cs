@@ -1,4 +1,4 @@
-﻿using D3vz_API.Models;
+﻿using D3vzDbLibrary;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
@@ -35,7 +35,7 @@ namespace D3vz_API.Controllers.DBAPI {
                         Erro = "Endereço de email inválido."
                     });
                 return null!;
-            } catch (Exception ex) {
+            } catch {
                 throw;
             }
         }
