@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IF+aQGxDeGxU3nfxw9A/n6tw00/95xBDuB835gEAb6wINzZ7Jw7NnighWmaD028/AVKj3rvkrL+nAfpFuC14/w==",
+  "dgSpecHash": "B42BnHW+ATGDI/w2sG2eiZCHznFlI7ooX82nuSgB2+pyLMH6UoFknFgbwZfi+oW5Do6UDGIDSV6e5rI8qhpggw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ThiagoMombergPlens\\source\\repos\\ThiagoMPSS\\D3vz\\D3vzDbLibrary\\D3vzDbLibrary.csproj",
+  "projectFilePath": "C:\\Users\\ThiagoMombergPlens\\Source\\Repos\\d3vz\\D3vzDbLibrary\\D3vzDbLibrary.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ThiagoMombergPlens\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\ThiagoMombergPlens\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

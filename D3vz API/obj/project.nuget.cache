@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MwIo/iITpeKJYpK/cy13yzsGga8gkJzFll/31/47t6jT514ntFQpmnEdjuZxuFGvIX7NiLYZ9QnHZfe+151yMA==",
+  "dgSpecHash": "xpDkMaYNriSNWocmQDdMV+Eiv9U8AVj8iUKDDVKy29dCpT+4NUZDKGUUg76rVFZT9kgUzxCfhLj1xgKyF7MICw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ThiagoMombergPlens\\source\\repos\\ThiagoMPSS\\D3vz\\D3vz API\\D3vz API.csproj",
+  "projectFilePath": "C:\\Users\\ThiagoMombergPlens\\Source\\Repos\\d3vz\\D3vz API\\D3vz API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ThiagoMombergPlens\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ThiagoMombergPlens\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
