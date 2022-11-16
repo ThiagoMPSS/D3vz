@@ -7,6 +7,8 @@ namespace D3vz_API.Controllers.DBAPI {
     [ApiController, Route("API/[controller]")]
     public abstract class UserControllerBase : ControllerBase, IBaseController {
 
+        public virtual string Discriminacao => "";
+
         private readonly ILogger<AlunoController> _logger;
         public UserControllerBase(ILogger<AlunoController> logger) {
             _logger = logger;
@@ -52,8 +54,27 @@ namespace D3vz_API.Controllers.DBAPI {
             return null!;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         public virtual IActionResult Update(long id, string? nm_user, string? email, string? senha, string? cpf, DateTime? dt_nasc, string[] interesses) {
             return null!;
+        }
+
+        [HttpPost("Auth")]
+        public virtual IActionResult Auth(string email, string senha) {
+            try {
+                var db = new D3vzAPI_dbContext();
+                var userExists = (from user in db.TUsers
+                                 where user.DsEmail == email
+                                    && user.DsSenha == senha
+                                    && user.Discriminacao == Discriminacao
+                                 select user.IdUser).ToArray().FirstOrDefault(-1);
+                if (userExists == -1)
+                    return NotFound(new { Auth = false });
+
+                return new JsonResult(new { Auth = true, Id = userExists });
+            } catch (Exception ex) {
+                return BadRequest(ex);
+            }
         }
     }
 }

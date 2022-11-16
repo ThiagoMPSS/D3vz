@@ -164,6 +164,10 @@ namespace D3vzDbLibrary {
                     .HasColumnName("nm_usuario");
 
                 entity.Property(e => e.NrCpf).HasColumnName("nr_cpf");
+
+                entity.Property(e => e.GoogleAuth)
+                    .IsUnicode(false)
+                    .HasColumnName("googleauth");
             });
 
             modelBuilder.Entity<TUser_TInterQuali>(entity => {

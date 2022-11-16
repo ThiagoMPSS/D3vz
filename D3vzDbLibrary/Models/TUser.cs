@@ -17,9 +17,10 @@ namespace D3vzDbLibrary {
         public string Discriminacao { get; set; } = null!;
         public string NmUsuario { get; set; } = null!;
         public string DsEmail { get; set; } = null!;
-        public string DsSenha { get; set; } = null!;
+        public string DsSenha { get; set; } = "";
         public string NrCpf { get; set; }
         public DateTime DtNascimento { get; set; }
+        public string? GoogleAuth { get; set; } = null;
 
         [JsonIgnore]
         public virtual TAluno? TAluno { get; set; }

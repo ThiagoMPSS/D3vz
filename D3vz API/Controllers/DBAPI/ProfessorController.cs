@@ -6,6 +6,8 @@ using System.Net;
 namespace D3vz_API.Controllers.DBAPI {
     public class ProfessorController : UserControllerBase {
 
+        public override string Discriminacao => "prof";
+
         public ProfessorController(ILogger<AlunoController> logger) : base(logger) { }
 
         [HttpPost()]
@@ -16,7 +18,7 @@ namespace D3vz_API.Controllers.DBAPI {
                 using var db = new D3vzAPI_dbContext();
                 var inte = MakeInterQuali(qualidades, db);
                 var user = new TUser() {
-                    Discriminacao = "prof",
+                    Discriminacao = this.Discriminacao,
                     NmUsuario = nm_user,
                     DsEmail = email,
                     DsSenha = senha,
@@ -67,6 +69,7 @@ namespace D3vz_API.Controllers.DBAPI {
                             select new {
                                 ID = professor.TUserIdUser,
                                 Nome = professor.TUserIdUserNavigation.NmUsuario,
+                                Descricao = professor.DsProf,
                                 Email = professor.TUserIdUserNavigation.DsEmail,
                                 CPF = professor.TUserIdUserNavigation.NrCpf,
                                 Nascimento = professor.TUserIdUserNavigation.DtNascimento,
@@ -91,6 +94,7 @@ namespace D3vz_API.Controllers.DBAPI {
                             select new {
                                 ID = professor.TUserIdUser,
                                 Nome = professor.TUserIdUserNavigation.NmUsuario,
+                                Descricao = professor.DsProf,
                                 Email = professor.TUserIdUserNavigation.DsEmail,
                                 CPF = professor.TUserIdUserNavigation.NrCpf,
                                 Nascimento = professor.TUserIdUserNavigation.DtNascimento,
@@ -104,7 +108,7 @@ namespace D3vz_API.Controllers.DBAPI {
         }
 
         [HttpPut()]
-        public override IActionResult Update(long id, string? nm_user, string? email, string? senha, string? cpf, DateTime? dt_nasc, string[] interesses) {
+        public IActionResult Update(long id, string? nm_user, string? descricao, string? email, string? senha, string? cpf, DateTime? dt_nasc, string[] interesses) {
             try {
                 using var db = new D3vzAPI_dbContext();
                 var prof = db.TProfs
@@ -120,6 +124,7 @@ namespace D3vz_API.Controllers.DBAPI {
                     }));
 
                 if (!string.IsNullOrEmpty(nm_user)) prof.TUserIdUserNavigation.NmUsuario = nm_user;
+                if (!string.IsNullOrEmpty(descricao)) prof.DsProf = descricao;
                 if (!string.IsNullOrEmpty(email)) prof.TUserIdUserNavigation.DsEmail = email;
                 if (!string.IsNullOrEmpty(senha)) prof.TUserIdUserNavigation.DsSenha = senha;
                 if (!string.IsNullOrEmpty(cpf)) prof.TUserIdUserNavigation.NrCpf = cpf;

@@ -98,7 +98,7 @@ namespace D3vz_API.Controllers.DBAPI {
                                     Erro = "Aula não encontrada."
                                 }));
 
-                            return new JsonResult(aulas);
+                            return new JsonResult(aulas.ToArray());
                         }
                     case "prof": {
                             var aulas = from aula in db.TAulas
@@ -115,7 +115,7 @@ namespace D3vz_API.Controllers.DBAPI {
                                     Erro = "Aula não encontrada."
                                 }));
 
-                            return new JsonResult(aulas);
+                            return new JsonResult(aulas.ToArray());
                         }
                     default:
                         return BadRequest("Discriminação incorreta.");
@@ -127,7 +127,22 @@ namespace D3vz_API.Controllers.DBAPI {
 
         [HttpGet("GetByInterlocutores")]
         public IActionResult Get(long professorId, long alunoId) {
-            throw new NotImplementedException();
+            try {
+                var db = new D3vzAPI_dbContext();
+                var aula = from aulas in db.TAulas
+                           where aulas.TProfTUserIdUser == professorId
+                                && aulas.TAlunoTUserIdUser == alunoId
+                           select new {
+                               aulas.IdAula,
+                               AlunoId = aulas.TAlunoTUserIdUser,
+                               ProfessorId = aulas.TProfTUserIdUser,
+                               aulas.DataHora,
+                               aulas.URL
+                           };
+                return new JsonResult(aula);
+            } catch (Exception ex) {
+                return BadRequest(new JsonResult(ex));
+            }
         }
     }
 }

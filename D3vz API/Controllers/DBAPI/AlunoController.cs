@@ -12,6 +12,8 @@ using System.Text.RegularExpressions;
 namespace D3vz_API.Controllers.DBAPI {
     public class AlunoController : UserControllerBase {
 
+        public override string Discriminacao => "aluno";
+
         public AlunoController(ILogger<AlunoController> logger) : base(logger) { }
 
         [HttpPost(), ApiExplorerSettings(IgnoreApi = false)]
@@ -22,7 +24,7 @@ namespace D3vz_API.Controllers.DBAPI {
                 using var db = new D3vzAPI_dbContext();
                 var inte = MakeInterQuali(interesses, db);
                 var user = new TUser() {
-                    Discriminacao = "aluno",
+                    Discriminacao = this.Discriminacao,
                     NmUsuario = nm_user,
                     DsEmail = email,
                     DsSenha = senha,
@@ -105,7 +107,7 @@ namespace D3vz_API.Controllers.DBAPI {
             }
         }
 
-        [HttpPut()]
+        [ApiExplorerSettings(IgnoreApi = false), HttpPut()]
         public override IActionResult Update(long id, string? nm_user, string? email, string? senha, string? cpf, DateTime? dt_nasc, string[] interesses) {
             try {
                 using var db = new D3vzAPI_dbContext();
