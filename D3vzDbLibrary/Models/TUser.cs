@@ -16,10 +16,12 @@ namespace D3vzDbLibrary {
         public long IdUser { get; set; } = 0;
         public string Discriminacao { get; set; } = null!;
         public string NmUsuario { get; set; } = null!;
+        public string Descricao { get; set; } = null!;
         public string DsEmail { get; set; } = null!;
         public string DsSenha { get; set; } = "";
-        public string NrCpf { get; set; }
+        public string NrCpf { get; set; } = "";
         public DateTime DtNascimento { get; set; }
+        public string? UrlFoto { get; set; } = null;
         public string? GoogleAuth { get; set; } = null;
 
         [JsonIgnore]

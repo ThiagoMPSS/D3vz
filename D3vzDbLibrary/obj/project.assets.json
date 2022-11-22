@@ -1911,24 +1911,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ThiagoMombergPlens\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Thiago\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ThiagoMombergPlens\\Source\\Repos\\d3vz\\D3vzDbLibrary\\D3vzDbLibrary.csproj",
+      "projectUniqueName": "C:\\Users\\Thiago\\Documents\\Projects\\d3vz\\D3vzDbLibrary\\D3vzDbLibrary.csproj",
       "projectName": "D3vzDbLibrary",
-      "projectPath": "C:\\Users\\ThiagoMombergPlens\\Source\\Repos\\d3vz\\D3vzDbLibrary\\D3vzDbLibrary.csproj",
-      "packagesPath": "C:\\Users\\ThiagoMombergPlens\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ThiagoMombergPlens\\Source\\Repos\\d3vz\\D3vzDbLibrary\\obj\\",
+      "projectPath": "C:\\Users\\Thiago\\Documents\\Projects\\d3vz\\D3vzDbLibrary\\D3vzDbLibrary.csproj",
+      "packagesPath": "C:\\Users\\Thiago\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Thiago\\Documents\\Projects\\d3vz\\D3vzDbLibrary\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\ThiagoMombergPlens\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Thiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1936,7 +1931,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

@@ -68,13 +68,14 @@
         app:layout_constraintTop_toBottomOf="@+id/btLoginEntrar"
         tools:ignore="TextContrastCheck" />
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btLoginEntrar"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="37dp"
 
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="49dp"
         android:background="@color/verdedev"
         android:text="@string/entrar1"
@@ -82,7 +83,7 @@
         app:layout_constraintCircleRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ds_senha"
+        app:layout_constraintTop_toBottomOf="@+id/switchProfessor"
         tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     <EditText
@@ -119,7 +120,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="217dp"
+        android:layout_height="208dp"
         android:contentDescription="@string/todo4"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -129,5 +130,15 @@
         app:layout_wrapBehaviorInParent="vertical_only"
         app:srcCompat="@drawable/hack" />
 
+    <Switch
+        android:id="@+id/switchProfessor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:minHeight="48dp"
+        android:text="Professor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ds_senha" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

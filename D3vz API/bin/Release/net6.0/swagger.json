@@ -5,175 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/API/Aluno": {
-      "post": {
-        "tags": [
-          "Aluno"
-        ],
-        "consumes": [
-          "application/json",
-          "text/json",
-          "application/*+json"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "nm_user",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "email",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "senha",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "cpf",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "dt_nasc",
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Aluno"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "Id",
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Aluno"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "email",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Aluno"
-        ],
-        "consumes": [
-          "application/json",
-          "text/json",
-          "application/*+json"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "id",
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "in": "query",
-            "name": "nm_user",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "email",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "senha",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "cpf",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "dt_nasc",
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/API/Aluno/GetById": {
-      "get": {
-        "tags": [
-          "Aluno"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "id",
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
     "/API/Aula": {
       "post": {
         "tags": [
@@ -276,6 +107,56 @@
         }
       }
     },
+    "/API/Aula/FromBody": {
+      "post": {
+        "tags": [
+          "Aula"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/JAula"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Aula"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/JAula"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/API/Aula/GetByUser": {
       "get": {
         "tags": [
@@ -327,10 +208,79 @@
         }
       }
     },
-    "/API/Professor": {
+    "/api/InterQuali": {
+      "delete": {
+        "tags": [
+          "InterQuali"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "InterQuali"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "linguagem",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/InterQuali/GetById": {
+      "get": {
+        "tags": [
+          "InterQuali"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/InterQuali/GetAll": {
+      "get": {
+        "tags": [
+          "InterQuali"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/API/User": {
       "post": {
         "tags": [
-          "Professor"
+          "User"
         ],
         "consumes": [
           "application/json",
@@ -339,44 +289,34 @@
         ],
         "parameters": [
           {
-            "in": "query",
-            "name": "nm_user",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "descricao",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "email",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "senha",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "cpf",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "dt_nasc",
-            "type": "string",
-            "format": "date-time"
-          },
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/JUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
           {
             "in": "body",
             "name": "body",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "$ref": "#/definitions/JUser"
             }
           }
         ],
@@ -388,7 +328,7 @@
       },
       "delete": {
         "tags": [
-          "Professor"
+          "User"
         ],
         "parameters": [
           {
@@ -406,12 +346,17 @@
       },
       "get": {
         "tags": [
-          "Professor"
+          "User"
         ],
         "parameters": [
           {
             "in": "query",
             "name": "email",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "discriminacao",
             "type": "string"
           }
         ],
@@ -420,10 +365,51 @@
             "description": "Success"
           }
         }
-      },
-      "put": {
+      }
+    },
+    "/API/User/GetById": {
+      "get": {
         "tags": [
-          "Professor"
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/API/User/GetAll": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "discriminacao",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/API/User/Auth": {
+      "post": {
+        "tags": [
+          "User"
         ],
         "consumes": [
           "application/json",
@@ -432,45 +418,10 @@
         ],
         "parameters": [
           {
-            "in": "query",
-            "name": "id",
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "in": "query",
-            "name": "nm_user",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "email",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "senha",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "cpf",
-            "type": "string"
-          },
-          {
-            "in": "query",
-            "name": "dt_nasc",
-            "type": "string",
-            "format": "date-time"
-          },
-          {
             "in": "body",
             "name": "body",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "$ref": "#/definitions/JUser"
             }
           }
         ],
@@ -481,23 +432,111 @@
         }
       }
     },
-    "/API/Professor/GetById": {
-      "get": {
+    "/API/User/AuthGoogle": {
+      "post": {
         "tags": [
-          "Professor"
+          "User"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
         ],
         "parameters": [
           {
-            "in": "query",
-            "name": "id",
-            "type": "integer",
-            "format": "int64"
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/JUser"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Success"
           }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "JAula": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "alunoid": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "profid": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "datahora": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "tempo": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "aceito": {
+          "type": "boolean"
+        }
+      }
+    },
+    "JUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "discriminacao": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "cpf": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "nascimento": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "senha": {
+          "type": "string"
+        },
+        "interquali": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "foto": {
+          "type": "string"
+        },
+        "dias": {
+          "type": "string"
+        },
+        "horarios": {
+          "type": "string"
+        },
+        "googleauth": {
+          "type": "string"
         }
       }
     }

@@ -4,16 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rocketteam.d3vs.R
@@ -21,12 +17,16 @@ import com.rocketteam.d3vs.activities.fragments.HistoricFragment
 import com.rocketteam.d3vs.activities.fragments.HomeFragment
 import com.rocketteam.d3vs.activities.fragments.PesquisaFragment
 import com.rocketteam.d3vs.activities.model.CardTutor
-import com.rocketteam.d3vs.db.D3vsDataBase
-import com.rocketteam.d3vs.db.entities.Qualificacoes
-import com.rocketteam.d3vs.db.entities.Tutor
-import com.rocketteam.d3vs.db.entities.Usuario
-import com.rocketteam.d3vs.db.entities.UsuarioAluno
+import com.rocketteam.d3vs.db.D3vzAPIConsumer
+import com.rocketteam.d3vs.db.IUserEndPoint
+import com.rocketteam.d3vs.db.models.Aluno
+import com.rocketteam.d3vs.db.models.IUser
+import com.rocketteam.d3vs.db.models.Professor
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.LocalDate
+import java.time.ZoneId
 
 public class Home : AppCompatActivity() {
 
@@ -40,51 +40,56 @@ public class Home : AppCompatActivity() {
     private var lblEmail: TextView? = null
     private var lblIdade: TextView? = null
 
-    private var perfil: UsuarioAluno? = null;
+    private var perfil: IUser? = null;
     private var account: GoogleSignInAccount? = null
 
-    private var db: D3vsDataBase? = null;
+    private var db: D3vzAPIConsumer? = null;
 
     companion object {
-        fun newInstance(Context: Context, Email: String): Intent {
-            val perfil = Intent(Context, Home::class.java)
-            val bundle = Bundle()
-            bundle.putString("Email", Email)
-            perfil.putExtras(bundle)
-            return perfil
+        fun newInstance(
+            Context: Context,
+            Id: Long,
+            Discriminacao: IUserEndPoint.Discriminacao
+        ): Intent {
+            val perfil = Intent(Context, Home::class.java);
+            val bundle = Bundle();
+            bundle.putLong("Id", Id);
+            bundle.putString("Discriminacao", Discriminacao.value);
+            perfil.putExtras(bundle);
+            return perfil;
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
-        val email = intent.extras!!.getString("Email", "")
+        val id = intent.extras!!.getLong("Id", -1);
+        val discriminacao = if (intent.extras!!.getString("Discriminacao", "aluno") == "aluno")
+            IUserEndPoint.Discriminacao.aluno
+        else
+            IUserEndPoint.Discriminacao.prof;
 
         try {
-            db = D3vsDataBase.getInstance(this);
-
-            db!!.let{
-                it.TutorDAO().insert(
-                    Tutor(Descricao = "Eu sou rico"),
-                    Usuario(
-                        Nome = "Bruce Wayne",
-                        DtNasc = LocalDate.parse("1915-04-17"),
-                        Cpf = "74594578",
-                        Senha = "Tananananam",
-                        Email = "morcego@wayneenterprises.com"
-                    ),
-                    arrayOf(
-                        Qualificacoes(
-                            Linguagem = "Tudo"
-                        )
-                    )
-                )
+            db = D3vzAPIConsumer();
+            val user: Call<IUser>? = when (discriminacao) {
+                IUserEndPoint.Discriminacao.aluno -> db?.aluno()?.getById(id) as Call<IUser>?;
+                IUserEndPoint.Discriminacao.prof -> db?.professor()?.getById(id) as Call<IUser>?
             }
+            user?.enqueue(object : Callback<IUser> {
+                override fun onFailure(call: Call<IUser>, t: Throwable) {
+                    Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show();
+                }
 
-            perfil = db!!.AlunoDAO().findByEmail(email)
+                override fun onResponse(call: Call<IUser>, response: Response<IUser>) {
+                    perfil = response.body();
+
+                    replaceFragment(homeFragment());
+                    Toast.makeText(baseContext, perfil!!.cpf, Toast.LENGTH_LONG).show();
+                }
+            });
         } catch (ex: Exception) {
             Toast.makeText(
                 this,
@@ -97,14 +102,10 @@ public class Home : AppCompatActivity() {
         }
 
 //        supportActionBar!!.hide()
-        replaceFragment(homeFragment())
         bottomNavigation = findViewById(R.id.bottom_navigation);
         fragmentContainer = findViewById(R.id.fragment_container);
 
-        //Era pra reconhecer, não to entendento o pq de não estar ok.
         bottomNavigation!!.setOnItemSelectedListener {
-//            Log.i("Navigation", it.itemId.toString());
-//            Log.i("Navigation", R.drawable.ic_home.toString());
             when (it.toString()) {
                 "Perfil" -> {
                     replaceFragment(homeFragment())
@@ -112,19 +113,28 @@ public class Home : AppCompatActivity() {
                 }
                 "Busca" -> {
                     val tutores = ArrayList<CardTutor>()
-                    db!!.TutorDAO().listAll().forEach { tutor ->
-                        tutores.add(
-                            CardTutor(
-                                R.drawable.ic_person,
-                                tutor.Usuario.Nome,
-                                tutor.Tutor.Descricao!!,
-                                tutor.Qualificacoes[0].Linguagem,
-                                ""
-                            )
-                        )
-                    }
-                    replaceFragment(PesquisaFragment.newInstance(tutores.toTypedArray()))
-                    actualFragment = 1
+                    db!!.professor()!!.getAll().enqueue(object : Callback<List<Professor>> {
+                        override fun onFailure(call: Call<List<Professor>>, t: Throwable) {
+                            Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show();
+                        }
+
+                        override fun onResponse(call: Call<List<Professor>>, response: Response<List<Professor>>) {
+                            var body = response.body()!!;
+                            body.forEach { tutor ->
+                                tutores.add(
+                                    CardTutor(
+                                        R.drawable.ic_person,
+                                        tutor.nome,
+                                        tutor.descricao,
+                                        if (tutor.interquali != null) tutor.interquali!![0] else "",
+                                        ""
+                                    )
+                                )
+                            }
+                            replaceFragment(PesquisaFragment.newInstance(tutores.toTypedArray()))
+                            actualFragment = 1
+                        }
+                    });
                 }
                 "Histórico" -> {
                     replaceFragment(historicfragment)
@@ -137,32 +147,25 @@ public class Home : AppCompatActivity() {
 
     private fun homeFragment(): Fragment {
         return HomeFragment.newInstance(
-            perfil!!.Usuario.Nome,
-            calcIdade(perfil!!.Usuario.DtNasc!!).toString() + " anos",
-            perfil!!.Usuario.Email,
-            perfil!!.Interesses.let { it ->
-                val i = ArrayList<String>()
-                it.forEach { it ->
-                    i.add(it.Interesse)
-                }
-                i.toTypedArray()
-            }
+            perfil!!.nome,
+            calcIdade(perfil!!.nascimento!!.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate()).toString() + " anos",
+            perfil!!.email,
+            perfil!!.interquali.let { it?.toTypedArray() ?: arrayOf(); }
         )
+//        throw Exception("");
     }
 
     private fun calcIdade(date: LocalDate): Int {
-        return (LocalDate.now().let {
-            it.plusYears(-date.year.toLong())
-                .plusMonths(-date.monthValue.toLong())
-                .plusDays(-date.dayOfYear.toLong())
-        }).year
+        return (LocalDate.now().plusYears(-date.year.toLong())
+            .plusMonths(-date.monthValue.toLong())
+            .plusDays(-date.dayOfYear.toLong())).year
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        if (fragment != null) {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, fragment)
-            transaction.commit()
-        }
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.commit()
     }
 }

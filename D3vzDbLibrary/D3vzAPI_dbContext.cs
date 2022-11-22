@@ -18,7 +18,7 @@ namespace D3vzDbLibrary {
 
         public virtual DbSet<TAluno> TAlunos { get; set; } = null!;
         public virtual DbSet<TAula> TAulas { get; set; } = null!;
-        public virtual DbSet<TInterQuali> TInteresses { get; set; } = null!;
+        public virtual DbSet<TInterQuali> TInterQuali { get; set; } = null!;
         public virtual DbSet<TProf> TProfs { get; set; } = null!;
         public virtual DbSet<TUser> TUsers { get; set; } = null!;
         public virtual DbSet<TUser_TInterQuali> TUser_TInterQuali { get; set; } = null!;
@@ -57,6 +57,18 @@ namespace D3vzDbLibrary {
                 entity.Property(e => e.IdAula)
                     .ValueGeneratedOnAdd()
                     .HasColumnName("id_aula");
+
+                entity.Property(e => e.DataHora)
+                    .IsUnicode(false)
+                    .HasColumnName("data_hora");
+
+                entity.Property(e => e.Aceito)
+                    .IsUnicode(false)
+                    .HasColumnName("aula_aceita");
+
+                entity.Property(e => e.TempoMinutos)
+                    .IsUnicode(false)
+                    .HasColumnName("aula_tempo");
 
                 entity.Property(e => e.TAlunoTUserIdUser).HasColumnName("t_aluno_t_user_id_user");
 
@@ -101,10 +113,13 @@ namespace D3vzDbLibrary {
                     .ValueGeneratedOnAdd()
                     .HasColumnName("t_user_id_user");
 
-                entity.Property(e => e.DsProf)
-                    .HasMaxLength(30)
-                    .IsUnicode(false)
-                    .HasColumnName("ds_prof");
+                entity.Property(e => e.DiasString)
+                    .HasColumnName("dias")
+                    .HasMaxLength(7);
+
+                entity.Property(e => e.HorariosString)
+                    .HasColumnName("horarios")
+                    .HasMaxLength(24);
 
                 entity.HasOne(d => d.TUserIdUserNavigation)
                     .WithOne(p => p.TProf)
@@ -162,6 +177,15 @@ namespace D3vzDbLibrary {
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("nm_usuario");
+
+                entity.Property(e => e.Descricao)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("descricao");
+
+                entity.Property(e => e.UrlFoto)
+                    .IsUnicode(false)
+                    .HasColumnName("url_foto");
 
                 entity.Property(e => e.NrCpf).HasColumnName("nr_cpf");
 

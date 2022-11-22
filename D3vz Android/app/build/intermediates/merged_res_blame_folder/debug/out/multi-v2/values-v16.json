@@ -4,7 +4,7 @@
             "outputFile": "com.rocketteam.d3vs.app-mergeDebugResources-51:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/home/thiago/.gradle/caches/transforms-3/63cc23c7f76a96e9e90dd731baa10e35/transformed/core-1.9.0/res/values-v16/values-v16.xml",
+                    "source": "C:\\Users\\Thiago\\.gradle\\caches\\transforms-3\\862a48ada38c28461deadd92c59b2d5c\\transformed\\core-1.9.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/home/thiago/.gradle/caches/transforms-3/c9a3162968171fab53e2ed2a1055277f/transformed/appcompat-1.6.0-beta01/res/values-v16/values-v16.xml",
+                    "source": "C:\\Users\\Thiago\\.gradle\\caches\\transforms-3\\5e4f0d45bd580c316a458752a537ef83\\transformed\\appcompat-1.6.0-beta01\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

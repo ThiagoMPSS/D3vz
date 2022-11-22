@@ -14,10 +14,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.rocketteam.d3vs.R
-import com.rocketteam.d3vs.db.D3vsDataBase
-import com.rocketteam.d3vs.db.entities.Aluno
-import com.rocketteam.d3vs.db.entities.Interesses
-import com.rocketteam.d3vs.db.entities.Usuario
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -34,7 +30,7 @@ class CriarPerfil : AppCompatActivity() {
     private var edtEmailAddress: EditText? = null;
     private var edtPassword: EditText? = null;
 
-    private var db: D3vsDataBase? = null;
+//    private var db: D3vsDataBase? = null;
     private var account: GoogleSignInAccount? = null
     private var saved: Boolean = false
 
@@ -62,7 +58,7 @@ class CriarPerfil : AppCompatActivity() {
             senha = it.getString("Senha").let { s -> s ?: "" }
         }
 
-        db = D3vsDataBase.getInstance(this);
+//        db = D3vsDataBase.getInstance(this);
 
         //btEstudante
         btEstudante = findViewById(R.id.btEstudante);
@@ -160,30 +156,30 @@ class CriarPerfil : AppCompatActivity() {
     private fun btSalvarOnClick(it: View?) {
         try {
             val email = edtEmailAddress!!.text.toString()
-            val interesses = ArrayList<Interesses>()
-            edtQualificacao!!.text.toString().split(';').forEach {
-                interesses.add(Interesses(Interesse = it))
-            }
-            if (db!!.AlunoDAO().findByEmail(email) == null) {
-                Toast.makeText(
-                    this,
-                    R.string.emailAlunoJaRegistrado,
-                    Toast.LENGTH_SHORT
-                )
-            }
-
-            db!!.AlunoDAO().insert(
-                Aluno = Aluno(),
-                Usuario(
-                    Nome = edtPersonName!!.text.toString(),
-                    Email = email,
-                    Senha = edtPassword!!.text.toString(),
-                    Cpf = edtCpf!!.text.toString(),
-                    DtNasc = LocalDate.parse(edtDate!!.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                    GoogleAuth = if (account != null) account!!.id else null
-                ),
-                interesses.toTypedArray()
-            )
+//            val interesses = ArrayList<Interesses>()
+//            edtQualificacao!!.text.toString().split(';').forEach {
+//                interesses.add(Interesses(Interesse = it))
+//            }
+//            if (db!!.AlunoDAO().findByEmail(email) == null) {
+//                Toast.makeText(
+//                    this,
+//                    R.string.emailAlunoJaRegistrado,
+//                    Toast.LENGTH_SHORT
+//                )
+//            }
+//
+//            db!!.AlunoDAO().insert(
+//                Aluno = Aluno(),
+//                Usuario(
+//                    Nome = edtPersonName!!.text.toString(),
+//                    Email = email,
+//                    Senha = edtPassword!!.text.toString(),
+//                    Cpf = edtCpf!!.text.toString(),
+//                    DtNasc = LocalDate.parse(edtDate!!.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+//                    GoogleAuth = if (account != null) account!!.id else null
+//                ),
+//                interesses.toTypedArray()
+//            )
             Toast.makeText(
                 this,
                 R.string.cadastradoSucesso,

@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.rocketteam.d3vs.BuildConfig
 import com.rocketteam.d3vs.R
+import com.rocketteam.d3vs.db.D3vzAPIConsumer
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +35,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun btRegistrarOnClick(it: View?) {
+
+        var db = D3vzAPIConsumer();
+        var aluno = db?.aluno()?.get("thiago@hotmail.com");
+//        aluno?.enqueue(object : Callback<Aluno> {
+//            override fun onFailure(call: Call<Aluno>, t: Throwable) {
+//                Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show();
+//                Log.e("Erro", t.stackTraceToString());
+//            }
+//
+//            override fun onResponse(call: Call<Aluno>, response: Response<Aluno>) {
+//                var resposta = response.body()!!;
+//                Toast.makeText(baseContext, resposta.nascimento.toString(), Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
         var activityCadastro: Intent = Intent(this, Cadastro::class.java)
         startActivity(activityCadastro)
     }

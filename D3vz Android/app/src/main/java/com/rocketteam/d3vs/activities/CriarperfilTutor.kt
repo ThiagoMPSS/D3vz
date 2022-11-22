@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.rocketteam.d3vs.R
-import com.rocketteam.d3vs.db.D3vsDataBase
-import com.rocketteam.d3vs.db.entities.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -34,7 +32,7 @@ class CriarperfilTutor : AppCompatActivity() {
     private var edtPassword: EditText? = null;
     private var edtDescricao: EditText? = null;
 
-    private var db: D3vsDataBase? = null;
+//    private var db: D3vsDataBase? = null;
     private var account: GoogleSignInAccount? = null
 
     companion object {
@@ -61,7 +59,7 @@ class CriarperfilTutor : AppCompatActivity() {
             senha = it.getString("Senha").let { s -> s ?: "" }
         }
 
-        db = D3vsDataBase.getInstance(this);
+//        db = D3vsDataBase.getInstance(this);
 
         //btEstudante
         btEstudante = findViewById(R.id.btEstudante);
@@ -138,32 +136,32 @@ class CriarperfilTutor : AppCompatActivity() {
     private fun btSalvarOnClick(it: View?) {
         try {
             val email = edtEmailAddress!!.text.toString()
-            val qualificacoes = ArrayList<Qualificacoes>()
-            edtQualificacao!!.text.toString().split(';').forEach {
-                qualificacoes.add(Qualificacoes(Linguagem = it))
-            }
-            if (db!!.TutorDAO().findByEmail(email) == null) {
-                Toast.makeText(
-                    this,
-                    R.string.emailTutorJaRegistrado,
-                    Toast.LENGTH_SHORT
-                )
-            }
-
-            db!!.TutorDAO().insert(
-                Tutor = Tutor(
-                    Descricao = edtDescricao!!.text.toString()
-                ),
-                Usuario(
-                    Nome = edtPersonName!!.text.toString(),
-                    Email = edtEmailAddress!!.text.toString(),
-                    Senha = edtPassword!!.text.toString(),
-                    Cpf = edtCpf!!.text.toString(),
-                    DtNasc = LocalDate.parse(edtDate!!.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                    GoogleAuth = if (account != null) account!!.id else null
-                ),
-                qualificacoes.toTypedArray()
-            )
+//            val qualificacoes = ArrayList<Qualificacoes>()
+//            edtQualificacao!!.text.toString().split(';').forEach {
+//                qualificacoes.add(Qualificacoes(Linguagem = it))
+//            }
+//            if (db!!.TutorDAO().findByEmail(email) == null) {
+//                Toast.makeText(
+//                    this,
+//                    R.string.emailTutorJaRegistrado,
+//                    Toast.LENGTH_SHORT
+//                )
+//            }
+//
+//            db!!.TutorDAO().insert(
+//                Tutor = Tutor(
+//                    Descricao = edtDescricao!!.text.toString()
+//                ),
+//                Usuario(
+//                    Nome = edtPersonName!!.text.toString(),
+//                    Email = edtEmailAddress!!.text.toString(),
+//                    Senha = edtPassword!!.text.toString(),
+//                    Cpf = edtCpf!!.text.toString(),
+//                    DtNasc = LocalDate.parse(edtDate!!.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+//                    GoogleAuth = if (account != null) account!!.id else null
+//                ),
+//                qualificacoes.toTypedArray()
+//            )
             Toast.makeText(
                 this,
                 R.string.cadastradoSucesso,

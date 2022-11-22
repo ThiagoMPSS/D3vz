@@ -22,3 +22,15 @@ C:\Users\ThiagoMombergPlens\Source\Repos\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3v
 C:\Users\ThiagoMombergPlens\Source\Repos\d3vz\D3vzDbLibrary\obj\Debug\net6.0\refint\D3vzDbLibrary.dll
 C:\Users\ThiagoMombergPlens\Source\Repos\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3vzDbLibrary.pdb
 C:\Users\ThiagoMombergPlens\Source\Repos\d3vz\D3vzDbLibrary\obj\Debug\net6.0\ref\D3vzDbLibrary.dll
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\bin\Debug\net6.0\D3vzDbLibrary.deps.json
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\bin\Debug\net6.0\D3vzDbLibrary.dll
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\bin\Debug\net6.0\D3vzDbLibrary.pdb
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3vzDbLibrary.csproj.AssemblyReference.cache
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3vzDbLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3vzDbLibrary.AssemblyInfoInputs.cache
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3vzDbLibrary.AssemblyInfo.cs
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3vzDbLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3vzDbLibrary.dll
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\refint\D3vzDbLibrary.dll
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\D3vzDbLibrary.pdb
+C:\Users\Thiago\Documents\Projects\d3vz\D3vzDbLibrary\obj\Debug\net6.0\ref\D3vzDbLibrary.dll

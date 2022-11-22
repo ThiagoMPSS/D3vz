@@ -1,9 +1,11 @@
-﻿using D3vzDbLibrary;
+﻿using D3vz_API.JsonModels;
+using D3vzDbLibrary;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace D3vz_API.Controllers.DBAPI {
+namespace D3vz_API.Controllers.DBAPI
+{
     [ApiController, Route("API/[controller]")]
     public class AulaController : ControllerBase {
         [HttpPost]
@@ -24,6 +26,11 @@ namespace D3vz_API.Controllers.DBAPI {
             }
         }
 
+        [HttpPost("FromBody")]
+        public IActionResult Add([FromBody] JAula aula) {
+            return Add(aula.ProfId, aula.AlunoId, aula.DataHora, aula.URL);
+        }
+
         [HttpPut]
         public IActionResult Update(long id, DateTime? datahora, string? url) {
             try {
@@ -38,6 +45,15 @@ namespace D3vz_API.Controllers.DBAPI {
                 db.SaveChanges();
 
                 return Ok();
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("FromBody")]
+        public IActionResult Update([FromBody] JAula aula) {
+            try {
+                return Update(aula.Id, aula.DataHora, aula.URL);
             } catch (Exception ex) {
                 return BadRequest(ex.Message);
             }

@@ -44,8 +44,15 @@ namespace D3vzDbLibrary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdAula"), 1L, 1);
 
+                    b.Property<bool>("Aceito")
+                        .IsUnicode(false)
+                        .HasColumnType("bit")
+                        .HasColumnName("aula_aceita");
+
                     b.Property<DateTime>("DataHora")
-                        .HasColumnType("datetime2");
+                        .IsUnicode(false)
+                        .HasColumnType("datetime2")
+                        .HasColumnName("data_hora");
 
                     b.Property<long>("TAlunoTUserIdUser")
                         .HasColumnType("bigint")
@@ -54,6 +61,11 @@ namespace D3vzDbLibrary.Migrations
                     b.Property<long>("TProfTUserIdUser")
                         .HasColumnType("bigint")
                         .HasColumnName("t_prof_t_user_id_user");
+
+                    b.Property<int>("TempoMinutos")
+                        .IsUnicode(false)
+                        .HasColumnType("int")
+                        .HasColumnName("aula_tempo");
 
                     b.Property<string>("URL")
                         .IsRequired()
@@ -98,12 +110,17 @@ namespace D3vzDbLibrary.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("t_user_id_user");
 
-                    b.Property<string>("DsProf")
+                    b.Property<string>("DiasString")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("ds_prof");
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)")
+                        .HasColumnName("dias");
+
+                    b.Property<string>("HorariosString")
+                        .IsRequired()
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)")
+                        .HasColumnName("horarios");
 
                     b.HasKey("TUserIdUser")
                         .HasName("t_prof_pk");
@@ -119,6 +136,13 @@ namespace D3vzDbLibrary.Migrations
                         .HasColumnName("id_user");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdUser"), 1L, 1);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("descricao");
 
                     b.Property<string>("Discriminacao")
                         .IsRequired()
@@ -161,6 +185,11 @@ namespace D3vzDbLibrary.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("nr_cpf");
+
+                    b.Property<string>("UrlFoto")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("url_foto");
 
                     b.HasKey("IdUser")
                         .HasName("t_user_pk");

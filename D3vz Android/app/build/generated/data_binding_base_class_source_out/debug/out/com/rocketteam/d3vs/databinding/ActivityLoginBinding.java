@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +44,9 @@ public final class ActivityLoginBinding implements ViewBinding {
   public final ImageView imageView;
 
   @NonNull
+  public final Switch switchProfessor;
+
+  @NonNull
   public final Toolbar toolbar2;
 
   @NonNull
@@ -51,7 +55,7 @@ public final class ActivityLoginBinding implements ViewBinding {
   private ActivityLoginBinding(@NonNull ConstraintLayout rootView, @NonNull TextView Bemvind,
       @NonNull SignInButton btGoogle, @NonNull AppCompatButton btLoginEntrar,
       @NonNull EditText dsEmail, @NonNull EditText dsSenha, @NonNull ImageView imageView,
-      @NonNull Toolbar toolbar2, @NonNull TextView vmCom) {
+      @NonNull Switch switchProfessor, @NonNull Toolbar toolbar2, @NonNull TextView vmCom) {
     this.rootView = rootView;
     this.Bemvind = Bemvind;
     this.btGoogle = btGoogle;
@@ -59,6 +63,7 @@ public final class ActivityLoginBinding implements ViewBinding {
     this.dsEmail = dsEmail;
     this.dsSenha = dsSenha;
     this.imageView = imageView;
+    this.switchProfessor = switchProfessor;
     this.toolbar2 = toolbar2;
     this.vmCom = vmCom;
   }
@@ -126,6 +131,12 @@ public final class ActivityLoginBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.switchProfessor;
+      Switch switchProfessor = ViewBindings.findChildViewById(rootView, id);
+      if (switchProfessor == null) {
+        break missingId;
+      }
+
       id = R.id.toolbar2;
       Toolbar toolbar2 = ViewBindings.findChildViewById(rootView, id);
       if (toolbar2 == null) {
@@ -139,7 +150,7 @@ public final class ActivityLoginBinding implements ViewBinding {
       }
 
       return new ActivityLoginBinding((ConstraintLayout) rootView, Bemvind, btGoogle, btLoginEntrar,
-          dsEmail, dsSenha, imageView, toolbar2, vmCom);
+          dsEmail, dsSenha, imageView, switchProfessor, toolbar2, vmCom);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
