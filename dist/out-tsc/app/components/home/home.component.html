@@ -1,0 +1,24 @@
+<main>
+  <section>
+    <img src="../../assets/Imagens/Logo.svg">
+    <h1>D3VS</h1>
+    <form [formGroup]="form" (submit)="realizarLogin()">
+      <div>
+        <label for="email">Usuário</label>
+        <input formControlName="email" type="email" name="email" id="email">
+      </div>
+      <div>
+        <label for="senha">Senha</label>
+        <input formControlName="senha" type="text" name="senha" id="senha">
+      </div>
+      <div>
+        <div id="divCheckTutor">
+          <label for="checktutor">Entrar como Tutor</label>
+          <input formControlName="checktutor" id="checktutor" type="checkbox">
+        </div>
+        <button [disabled]="!form.valid" type="submit" id="botaoLogin">LOGIN</button>
+        <button routerLink="../cadastro-aluno" id="botaoCadastrar">CADASTRE-SE</button>
+      </div>
+    </form>
+  </section>
+</main>
