@@ -300,6 +300,9 @@ namespace D3vz_API.Controllers.DBAPI {
 
         internal virtual IActionResult AuthGoogle(string code, string discriminacao) {
             try {
+                if (string.IsNullOrWhiteSpace(code))
+                    return BadRequest("Campo código deve ser preenchido!");
+
                 var db = new D3vzAPI_dbContext();
                 var userExists = (from user in db.TUsers
                                   where user.GoogleAuth == code

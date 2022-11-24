@@ -15,7 +15,7 @@ namespace D3vz_API.Controllers.DBAPI {
             [JsonPropertyName("foto")] public string? Foto { get; set; }
             [JsonPropertyName("dias")] public string? Dias { get; set; }
             [JsonPropertyName("horarios")] public string? Horarios { get; set; }
-            [JsonPropertyName("googleauth")] public string? GoogleAuth { get; set; }
+            [JsonPropertyName("code")] public string? GoogleAuth { get; set; }
         }
     }
 }

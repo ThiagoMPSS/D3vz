@@ -13,31 +13,11 @@ interface IProfessorEndPoint {
 
     @GET("User/GetAll") fun getAll(@Query("discriminacao") discriminacao: String = "prof"): Call<List<Professor>>
 
-    @POST("User") fun add(
-        @Query("nm_user") nm_user: String,
-        @Query("descricao") descricao: String,
-        @Query("email") email: String,
-        @Query("senha") senha: String,
-        @Query("cpf") cpf: String,
-        @Query("dt_nasc") dt_nasc: LocalDateTime,
-        @Body qualidades: List<String>
-    ): Call<Void>;
+    @POST("User") fun add(@Body user: Professor): Call<Void>;
 
-    @POST("User/Auth") fun auth(
-        @Query("email") email: String,
-        @Query("senha") senha: String
-    ): Call<Auth>;
+    @POST("User/Auth") fun auth(@Body user: Auth): Call<Auth>;
 
     @DELETE("User") fun remove(@Query("Id") id: Long): Call<Void>;
 
-    @PUT("User") fun update(
-        @Query("id") id: Long,
-        @Query("nm_user") nm_user: String?,
-        @Query("descricao") descricao: String?,
-        @Query("email") email: String?,
-        @Query("senha") senha: String?,
-        @Query("cpf") cpf: String?,
-        @Query("dt_nasc") dt_nasc: LocalDateTime?,
-        @Body qualidades: List<String>?
-    ): Call<Void>;
+    @PUT("User") fun update(@Body user: Professor): Call<Void>;
 }

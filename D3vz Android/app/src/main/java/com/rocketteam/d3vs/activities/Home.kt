@@ -19,7 +19,6 @@ import com.rocketteam.d3vs.activities.fragments.PesquisaFragment
 import com.rocketteam.d3vs.activities.model.CardTutor
 import com.rocketteam.d3vs.db.D3vzAPIConsumer
 import com.rocketteam.d3vs.db.IUserEndPoint
-import com.rocketteam.d3vs.db.models.Aluno
 import com.rocketteam.d3vs.db.models.IUser
 import com.rocketteam.d3vs.db.models.Professor
 import retrofit2.Call
@@ -65,18 +64,17 @@ public class Home : AppCompatActivity() {
         setContentView(R.layout.activity_home);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-
         val id = intent.extras!!.getLong("Id", -1);
         val discriminacao = if (intent.extras!!.getString("Discriminacao", "aluno") == "aluno")
-            IUserEndPoint.Discriminacao.aluno
+            IUserEndPoint.Discriminacao.Aluno
         else
-            IUserEndPoint.Discriminacao.prof;
+            IUserEndPoint.Discriminacao.Prof;
 
         try {
             db = D3vzAPIConsumer();
             val user: Call<IUser>? = when (discriminacao) {
-                IUserEndPoint.Discriminacao.aluno -> db?.aluno()?.getById(id) as Call<IUser>?;
-                IUserEndPoint.Discriminacao.prof -> db?.professor()?.getById(id) as Call<IUser>?
+                IUserEndPoint.Discriminacao.Aluno -> db?.aluno()?.getById(id) as Call<IUser>?;
+                IUserEndPoint.Discriminacao.Prof -> db?.professor()?.getById(id) as Call<IUser>?
             }
             user?.enqueue(object : Callback<IUser> {
                 override fun onFailure(call: Call<IUser>, t: Throwable) {
@@ -126,7 +124,7 @@ public class Home : AppCompatActivity() {
                                         R.drawable.ic_person,
                                         tutor.nome,
                                         tutor.descricao,
-                                        if (tutor.interquali != null) tutor.interquali!![0] else "",
+                                        if (tutor.interQuali != null) tutor.interQuali!![0] else "",
                                         ""
                                     )
                                 )
@@ -152,7 +150,7 @@ public class Home : AppCompatActivity() {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate()).toString() + " anos",
             perfil!!.email,
-            perfil!!.interquali.let { it?.toTypedArray() ?: arrayOf(); }
+            perfil!!.interQuali.let { it?.toTypedArray() ?: arrayOf(); }
         )
 //        throw Exception("");
     }

@@ -77,9 +77,13 @@ class Login : AppCompatActivity() {
                 null -> Toast.makeText(this, R.string.NaoLogado, Toast.LENGTH_SHORT).show()
                 else -> {
                     var cont = this;
-                    val tipoUser = if (switchProf!!.isChecked) IUserEndPoint.Discriminacao.prof
-                                   else IUserEndPoint.Discriminacao.aluno;
-                    db!!.user()!!.authGoogle(account.id!!, tipoUser).enqueue(object : Callback<Auth> {
+                    val tipoUser = if (switchProf!!.isChecked) IUserEndPoint.Discriminacao.Prof
+                                   else IUserEndPoint.Discriminacao.Aluno;
+                    db!!.user()!!.authGoogle(hashMapOf(
+                        "id" to account.id!!,
+                        "discriminacao" to tipoUser.value
+                    ))
+                    .enqueue(object : Callback<Auth> {
                         override fun onFailure(call: Call<Auth>, t: Throwable) {
                             throw t;
                         }
@@ -127,15 +131,24 @@ class Login : AppCompatActivity() {
     private fun btEntrarOnClick(it: View?) {
         try {
             val cont = this;
-            val tipoUser = if (switchProf!!.isChecked) IUserEndPoint.Discriminacao.prof
-                           else IUserEndPoint.Discriminacao.aluno;
-            db!!.user()!!.auth(edtEmail!!.text.toString(), edtSenha!!.text.toString(), tipoUser)
+            val tipoUser = if (switchProf!!.isChecked) IUserEndPoint.Discriminacao.Prof
+                           else IUserEndPoint.Discriminacao.Aluno;
+            db!!.user()!!.auth(hashMapOf(
+                "email" to edtEmail!!.text.toString(),
+                "senha" to edtSenha!!.text.toString(),
+                "discriminacao" to tipoUser.value
+            ))
                 .enqueue(object : Callback<Auth> {
                     override fun onFailure(call: Call<Auth>, t: Throwable) {
                         throw t;
                     }
 
                     override fun onResponse(call: Call<Auth>, response: Response<Auth>) {
+                        if (response.body() == null) {
+                            Toast.makeText(cont, "", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
                         val resposta = response.body()!!;
 
                         if (resposta.Auth) {
