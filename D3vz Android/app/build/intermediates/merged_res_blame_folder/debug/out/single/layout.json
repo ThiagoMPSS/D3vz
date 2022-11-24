@@ -1,46 +1,42 @@
 [
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\activity_criarperfil_tutor.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\activity_criarperfil_tutor.xml"
-    },
-    {
         "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/activity_login.xml",
         "source": "com.rocketteam.d3vs.app-main-55:/layout/activity_login.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\fragment_historic.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\fragment_historic.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/fragment_home.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/fragment_home.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\activity_main.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\activity_main.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/activity_cadastro.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/activity_cadastro.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\activity_home.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\activity_home.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/tutores_item.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/tutores_item.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\fragment_pesquisa.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\fragment_pesquisa.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/activity_criarperfil_tutor.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/activity_criarperfil_tutor.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\activity_criar_perfil.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\activity_criar_perfil.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/activity_home.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/activity_home.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\activity_login.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\activity_login.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/activity_main.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\tutores_item.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\tutores_item.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/fragment_pesquisa.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/fragment_pesquisa.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\activity_cadastro.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\activity_cadastro.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/fragment_historic.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/fragment_historic.xml"
     },
     {
-        "merged": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-mergeDebugResources-52:\\layout\\fragment_home.xml",
-        "source": "C:\\Users\\Thiago\\.gradle\\daemon\\7.4\\com.rocketteam.d3vs.app-main-55:\\layout\\fragment_home.xml"
+        "merged": "com.rocketteam.d3vs.app-mergeDebugResources-52:/layout/activity_criar_perfil.xml",
+        "source": "com.rocketteam.d3vs.app-main-55:/layout/activity_criar_perfil.xml"
     }
 ]

@@ -4,7 +4,7 @@
             "outputFile": "com.rocketteam.d3vs.app-mergeDebugResources-51:/values-v25/values-v25.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Thiago\\.gradle\\caches\\transforms-3\\5e4f0d45bd580c316a458752a537ef83\\transformed\\appcompat-1.6.0-beta01\\res\\values-v25\\values-v25.xml",
+                    "source": "/home/thiago/.gradle/caches/transforms-3/5e4f0d45bd580c316a458752a537ef83/transformed/appcompat-1.6.0-beta01/res/values-v25/values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",

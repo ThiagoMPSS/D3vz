@@ -3506,6 +3506,7 @@ mipmap ic_launcher
 mipmap ic_launcher_round
 navigation nav_main
 plurals mtrl_badge_content_description
+string GoogleClientID
 string NaoLogado
 string abc_action_bar_home_description
 string abc_action_bar_up_description

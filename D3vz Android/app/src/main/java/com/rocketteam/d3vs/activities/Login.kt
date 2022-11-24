@@ -1,5 +1,7 @@
 package com.rocketteam.d3vs.activities
 
+import android.app.Activity
+import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +11,9 @@ import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -19,6 +24,7 @@ import com.rocketteam.d3vs.R
 import com.rocketteam.d3vs.db.D3vzAPIConsumer
 import com.rocketteam.d3vs.db.IUserEndPoint
 import com.rocketteam.d3vs.db.models.Auth
+import org.jetbrains.annotations.Nullable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +38,7 @@ class Login : AppCompatActivity() {
     private var btEntrar: Button? = null
     private var toolBar2: Toolbar? = null
 
+    var startForResult: ActivityResultLauncher<Intent>? = null;
     private var db: D3vzAPIConsumer? = null
     var gso: GoogleSignInOptions? = null
 
@@ -40,9 +47,63 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
+        startForResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+//                Toast.makeText(this, "Teste", Toast.LENGTH_LONG).show();
+                if (it.resultCode == Activity.RESULT_OK) {
+                    when (val account = GoogleSignIn.getSignedInAccountFromIntent(it.data).result) {
+                        null -> Toast.makeText(this, R.string.NaoLogado, Toast.LENGTH_SHORT)
+                            .show()
+                        else -> {
+                            val cont = this;
+                            val tipoUser =
+                                if (switchProf!!.isChecked) IUserEndPoint.Discriminacao.Prof
+                                else IUserEndPoint.Discriminacao.Aluno;
+                            db!!.user()!!.authGoogle(
+                                hashMapOf(
+                                    "id" to account.id!!,
+                                    "discriminacao" to tipoUser.value
+                                )
+                            ).enqueue(object : Callback<Auth> {
+                                override fun onFailure(call: Call<Auth>, t: Throwable) {
+                                    throw t;
+                                }
+
+                                override fun onResponse(
+                                    call: Call<Auth>,
+                                    response: Response<Auth>
+                                ) {
+                                    val resposta = response.body()!!;
+                                    if (resposta.Auth) {
+                                        startActivity(
+                                            Home.newInstance(
+                                                cont,
+                                                resposta.Id!!,
+                                                tipoUser
+                                            )
+                                        )
+                                        finish()
+                                    }
+                                }
+                            })
+
+//                    if (db!!.AlunoDAO().autenticar(account.id!!)) {
+//                        startActivity(Home.newInstance(this, account.email!!))
+//                        finish()
+//                    }
+                        }
+                    }
+                } else {
+                    val account = GoogleSignIn.getSignedInAccountFromIntent(it.data).exception;
+                    Toast.makeText(this, account.toString(), Toast.LENGTH_LONG).show();
+                }
+            };
+
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.GoogleClientID))
+            .requestEmail()
             .requestProfile()
-            .requestEmail().build()
+            .build()
 
         //toolBar2
         toolBar2 = findViewById(R.id.toolbar2)
@@ -72,52 +133,18 @@ class Login : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        try {
-            when (val account = GoogleSignIn.getLastSignedInAccount(this)) {
-                null -> Toast.makeText(this, R.string.NaoLogado, Toast.LENGTH_SHORT).show()
-                else -> {
-                    var cont = this;
-                    val tipoUser = if (switchProf!!.isChecked) IUserEndPoint.Discriminacao.Prof
-                                   else IUserEndPoint.Discriminacao.Aluno;
-                    db!!.user()!!.authGoogle(hashMapOf(
-                        "id" to account.id!!,
-                        "discriminacao" to tipoUser.value
-                    ))
-                    .enqueue(object : Callback<Auth> {
-                        override fun onFailure(call: Call<Auth>, t: Throwable) {
-                            throw t;
-                        }
-
-                        override fun onResponse(call: Call<Auth>, response: Response<Auth>) {
-                            var resposta = response.body()!!;
-                            if (resposta.Auth) {
-                                startActivity(Home.newInstance(cont, resposta.Id!!, tipoUser))
-                                finish()
-                            }
-                        }
-                    })
-
-//                    if (db!!.AlunoDAO().autenticar(account.id!!)) {
-//                        startActivity(Home.newInstance(this, account.email!!))
-//                        finish()
-//                    }
-                }
-            }
-        } catch (ex: Exception) {
-            Toast.makeText(
-                this,
-                "Erro ao entrar com o google",
-                Toast.LENGTH_SHORT
-            ).show()
-            Log.e("Google SignIn", ex.stackTraceToString())
-        }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    var SignInIntent: Intent? = null;
     private fun btGoogleOnClick(it: View?) {
         try {
             val client = GoogleSignIn.getClient(this, gso!!)
-            val signInIntent: Intent = client.signInIntent
-            startActivity(signInIntent)
+            SignInIntent = client.signInIntent;
+            startForResult!!.launch(SignInIntent);
         } catch (ex: Exception) {
             Toast.makeText(
                 this,
@@ -132,12 +159,14 @@ class Login : AppCompatActivity() {
         try {
             val cont = this;
             val tipoUser = if (switchProf!!.isChecked) IUserEndPoint.Discriminacao.Prof
-                           else IUserEndPoint.Discriminacao.Aluno;
-            db!!.user()!!.auth(hashMapOf(
-                "email" to edtEmail!!.text.toString(),
-                "senha" to edtSenha!!.text.toString(),
-                "discriminacao" to tipoUser.value
-            ))
+            else IUserEndPoint.Discriminacao.Aluno;
+            db!!.user()!!.auth(
+                hashMapOf(
+                    "email" to edtEmail!!.text.toString(),
+                    "senha" to edtSenha!!.text.toString(),
+                    "discriminacao" to tipoUser.value
+                )
+            )
                 .enqueue(object : Callback<Auth> {
                     override fun onFailure(call: Call<Auth>, t: Throwable) {
                         throw t;
@@ -150,12 +179,13 @@ class Login : AppCompatActivity() {
                         }
 
                         val resposta = response.body()!!;
-
                         if (resposta.Auth) {
-                            val homeActivity: Intent = Home.newInstance(cont, resposta.Id!!, tipoUser);
+                            val homeActivity: Intent =
+                                Home.newInstance(cont, resposta.Id!!, tipoUser);
                             startActivity(homeActivity);
                         } else {
-                            Toast.makeText(cont, R.string.dadosIncorretos, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(cont, R.string.dadosIncorretos, Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 });

@@ -34,9 +34,11 @@ class Cadastro : AppCompatActivity() {
         setContentView(R.layout.activity_cadastro)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail()
+        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.GoogleClientID))
+            .requestEmail()
             .requestProfile()
-            .requestEmail().build()
+            .build()
 
         //btEntrar
         btEntrar = findViewById(R.id.btLoginEntrar)

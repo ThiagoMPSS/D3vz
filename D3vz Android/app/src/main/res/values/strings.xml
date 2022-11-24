@@ -65,4 +65,5 @@
     <string name="NaoLogado">Login cancelado</string>
     <string name="emailAlunoJaRegistrado">Esse email já está cadastrado para um aluno!</string>
     <string name="emailTutorJaRegistrado">Esse email já está cadastrado para um tutor!</string>
+    <string name="GoogleClientID">933984888290-hb304o5nfc4qqp3oj99a76cia2gthhta.apps.googleusercontent.com</string>
 </resources>

@@ -535,7 +535,7 @@
         "horarios": {
           "type": "string"
         },
-        "googleauth": {
+        "code": {
           "type": "string"
         }
       }

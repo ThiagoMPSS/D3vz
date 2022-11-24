@@ -13,6 +13,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <string name="GoogleClientID">933984888290-hb304o5nfc4qqp3oj99a76cia2gthhta.apps.googleusercontent.com</string>
     <string name="NaoLogado">Login cancelado</string>
     <string name="app_name">D3vs</string>
     <string name="bem_vindo_a_de_volta">Bem-vindo(a) de volta</string>

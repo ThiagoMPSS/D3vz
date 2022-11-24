@@ -4,7 +4,7 @@
             "outputFile": "com.rocketteam.d3vs.app-mergeDebugResources-51:/values-w1240dp-v13/values-w1240dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Thiago\\Documents\\Projects\\d3vz\\D3vz Android\\app\\src\\main\\res\\values-w1240dp\\dimens.xml",
+                    "source": "/home/thiago/Documentos/D3vz Project Atualizado/d3vz/D3vz Android/app/src/main/res/values-w1240dp/dimens.xml",
                     "from": {
                         "startLines": "1",
                         "startColumns": "4",

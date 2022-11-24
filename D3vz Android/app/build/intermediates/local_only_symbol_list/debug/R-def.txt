@@ -93,6 +93,7 @@ menu bottom_navigation_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 navigation nav_main
+string GoogleClientID
 string NaoLogado
 string app_name
 string bem_vindo_a_de_volta
