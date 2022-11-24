@@ -1,0 +1,100 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+main{
+  width: 100%;
+  height: 95%;
+  background-color: #F2F2F2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h2{
+  margin: 40px;
+  font-family: 'Inter';
+  font-weight: 700;
+  font-size: 30px;
+}
+mat-card{
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+}
+#busca{
+  width: 900px;
+  min-height: 65em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.buscaCards{
+  margin: 1%;
+  width: 800px;
+  height: 110px;
+  background: #FFFFFF;
+  border: 1px solid #11DD62;
+  display: flex;
+}
+.foto{
+  width: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.qualificacoes{
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.qualificacoes div{
+  margin: 2% 0 2% 0;
+}
+.nomeQua{
+  font-family: 'Inter';
+  font-weight: 700;
+  font-size: 15px;
+  margin-right: 2%;
+}
+.descricao{
+  width: 440px;
+  font-family: 'Inter';
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.25);
+}
+.botoes{
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+}
+.botaoSolicitar{
+  margin-bottom: 8%;
+  width: 140px;
+  height: 30px;
+  font-family: 'Inter';
+  font-weight: 700;
+  font-size: 14px;
+  background: #11DD62;
+  border: 1px solid #11DD62;
+  border-radius: 5px;
+  color: white;
+}
+.botaoPerfil{
+  margin-bottom: 8%;
+  width: 140px;
+  height: 30px;
+  font-family: 'Inter';
+  font-weight: 700;
+  font-size: 14px;
+  background: #847AF9;;
+  border: 1px solid #847AF9;;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}

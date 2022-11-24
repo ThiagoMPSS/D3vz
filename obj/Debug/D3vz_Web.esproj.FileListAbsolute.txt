@@ -1,0 +1,2 @@
+C:\Users\Thiago\Documents\Projects\d3vz\D3vz_Web\obj\Debug\D3vz_Web.esproj.SuggestedBindingRedirects.cache
+C:\Users\Thiago\Documents\Projects\d3vz\D3vz_Web\obj\Debug\D3vz_Web.esproj.CoreCompileInputs.cache
